@@ -1,0 +1,956 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║  KADİRİ TARİKATI EL KİTABI — EK ÖZELLİKLER PROMPT BÖLÜM 3         ║
+║  2026 TRENDLERİ + ULTRA GELİŞMİŞ YENİ SİSTEMLER                    ║
+║  %100 KODLA YAPILABİLİR — API YOK — KURULUM YOK — TAMAMEN ÜCRETSİZ ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM A: GAMİFİCATİON SİSTEMİ — "HASENÂT BAHÇESİ"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Her ibadet → bahçeye yeni bir bitki/çiçek ekler.
+  Bahçe ihmal edilirse solar. Düzenli ibadet → yeşil bahçe.
+  Görünür, büyüyen, solabilen canlı bir manevi ilerleme temsili.
+  (Just Pray uygulamasının "Garden of Deeds" konsepti — tamamen
+   local kod ile, herhangi API olmadan Compose Canvas ile yapılır)
+
+VERİ MODELİ:
+  data class HasenatBitki(
+      val id: Long = 0,
+      val tur: BitkiTur,            // NAMAZ, ZİKİR, DUA, ORUÇ, SADAKA vb.
+      val edinimTarihi: LocalDate,
+      val sulamaTarihi: LocalDate,  // son ibadet tarihi
+      val saglik: Int,              // 0-100 (sağlık puanı)
+      val seviye: Int,              // 1-5 (büyüme aşaması)
+      val pozisyon: Offset          // bahçedeki canvas koordinatı
+  )
+
+  enum class BitkiTur(
+      val isim: String,
+      val renk: Color,
+      val ikon: ImageVector
+  ) {
+      NAMAZ        ("5 Vakit Namaz",    IslamicGreen,  ...),
+      ZİKİR        ("Zikirmatik",       GoldAccent,    ...),
+      KURAN        ("Kuran Okuma",      MysticPurple,  ...),
+      SABAH_EZKAR  ("Sabah Ezkarı",     Color(0xFFFF8F00), ...),
+      AKSAM_EZKAR  ("Akşam Ezkarı",     PrimaryDark,   ...),
+      SUNNNET      ("Sünnet Namazlar",  Color(0xFF40A0FF), ...),
+      TAHECCUD     ("Teheccüd",         TertiaryDark,  ...),
+      SADAKA       ("Sadaka / Hayır",   Color(0xFFFF6B35), ...),
+      ORUÇ         ("Oruç",            Color(0xFF8BC34A), ...),
+      KADIRI_VIRD  ("Kadiri Virdi",     ArabesqueGold, ...)
+  }
+
+BAHÇE GÖRÜNÜMÜ (GardenScreen.kt):
+  Canvas(modifier = Modifier.fillMaxSize()) {
+      // 1. Arka plan: Gece gökyüzü gradyanı veya gündüz mavi gökyüzü
+      //    (zaman tabanlı — sabah/öğle/akşam/gece rengi değişir)
+      // 2. Zemin: Kahverengi → yeşil gradient (sağlık puanına göre)
+      // 3. Her bitki: drawPath() ile SVG-benzeri 5 büyüme aşaması
+      //    Aşama 1: Tohum (küçük daire)
+      //    Aşama 2: Fidan (ince sapla küçük yaprak)
+      //    Aşama 3: Genç bitki (sapla 3 yaprak)
+      //    Aşama 4: Çiçek açmış bitki (5 yaprak + çiçek)
+      //    Aşama 5: Tam olgunluk (büyük, renkli, görkemli)
+      // 4. Sağlık < 30: Sararmış → < 10: Solmuş (gri)
+      // 5. Rüzgar animasyonu: bitkiler hafif sallanır (infiniteTransition)
+  }
+
+  Alt panel:
+    - Toplam hasenât skoru (büyük sayı, Amiri Bold)
+    - Streak ateş ikonu (kaç gün üst üste bahçe yeşil)
+    - "Bugün sulayın!" hatırlatıcısı (bahçe sararmaya başlamışsa)
+
+HABİT LOOP ALGORİTMASI:
+  Her sabah 03:00: WorkManager → her bitkinin saglik değerini
+  son ibadet tarihine göre güncelle:
+    • 0 gün önce: +10 puan
+    • 1 gün önce: değişmez
+    • 2 gün: -5
+    • 3 gün: -15
+    • 4+ gün: -25 (hızlı solar)
+  saglik == 0 → bitki ölür, silinir (uyarı bildirimi)
+
+ÖDÜL SİSTEMİ:
+  Milestone bildirimleri (local notification, API yok):
+    • 7 gün streak  → "Mâşâallah! Bir hafta kesintisiz"
+    • 30 gün streak → Özel Lottie konfeti animasyonu
+    • 100 zikir/gün → "Günlük hedef aşıldı"
+    • Tüm 5 vakit  → "Bugün tüm namazlar kılındı ✓"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM B: RUH HALİ TABАНLI DUA REHBERİ
+                "Kalbimin Hâline Göre Dua"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Kullanıcı şu an nasıl hissettğini seçer →
+  O duygusal hâle en uygun Kuranî ayetler ve nebevi dualar
+  Local JSON veritabanından çekilir → gösterilir.
+  Herhangi bir dış API yok — tüm içerik assets/data/duygular.json'da
+
+  (Muslim Pro'nun 2026 Journal özelliğindeki
+   "Mood → Ayah" konsepti — tamamen offline local JSON ile)
+
+RUH HALİ KATEGORİLERİ (emoji + isim):
+  😔 Üzgün / Hüzünlü     → Teselli duaları, sabır ayetleri
+  😰 Endişeli / Kaygılı  → Tevekkül duaları, La havle...
+  😤 Sinirli / Öfkeli    → Euzu, öfke hadisleri, istiğfar
+  😴 Yorgun / Tükenmiş   → Şükür, güç duaları, Hasbünallah
+  😊 Mutlu / Şükredici   → Hamd, şükür duaları, sevinç ayetleri
+  🤒 Hasta / Ağrılı      → Şifa duaları, Ruqye ayetleri
+  😟 Günahkâr / Pişman   → İstiğfar duaları, tövbe ayetleri
+  🤔 Kararsız / Kaybolmuş→ İstihare duası, hidayet ayetleri
+  💔 Kırılmış / Hayal kırıklığı → Sabır ayetleri, Allah'a sığınma
+  🌙 Gece / Uyanık       → Teheccüd, gece duaları, seher ezkarı
+  🛫 Yolculukta           → Yolculuk duaları
+  📚 Öğrenmek İstiyorum  → İlim duaları, Rabbi zidni ilmâ
+
+UYGULAMA (MoodDuaScreen.kt):
+  Ekran 1: Emoji Seçim Izgarası (LazyVerticalGrid 3 sütun)
+    Her emoji: M3 Expressive büyük kart, pulse animasyonu
+    Seçince: spring scale + renk değişimi
+  
+  Ekran 2: AnimatedContent ile geçiş → Dua listesi
+    Her dua:  Arapça metin (Amiri, RTL)
+              Türkçe anlam
+              Kaynak (Hadis/Kuran)
+              Ses butonu (offline audio)
+              Favoriye ekle
+  
+  İstatistik (Room'da): En çok hangi ruh haliyle dua edildi,
+                        haftalık mood grafiği (Compose Charts)
+
+VERİ YAPISI (assets/data/duygular.json):
+  {
+    "ruhHali": [
+      {
+        "id": "uzgun",
+        "emoji": "😔",
+        "isim": "Üzgün",
+        "renk": "#4A90D9",
+        "dualar": [
+          {
+            "arabicText": "اللَّهُمَّ إِنِّي عَبْدُكَ...",
+            "turkishMeaning": "Allah'ım, ben senin kulunum...",
+            "kaynak": "Buhari, 6307",
+            "sesResId": "dua_uzuntu_001"
+          }
+        ],
+        "ayetler": [...]
+      }
+    ]
+  }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM C: RAMAZAN & ORUÇ TAKİP MODELİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Ramazan ayında özel mod devreye girer.
+  Hicri takvimden otomatik Ramazan tespiti (hijri paketi).
+  Tüm hesaplamalar offline — adhan paketi ile imsak/iftar.
+
+RamazanScreen.kt LAYOUT:
+  ┌────────────────────────────────────────┐
+  │  "Ramazan-ı Şerif — 1447"             │
+  │  Bugün: 15. Gün | Hicri Tarih         │
+  ├────────────────────────────────────────┤
+  │  ┌──────────────┐  ┌──────────────┐   │
+  │  │  İmsak       │  │  İftar       │   │
+  │  │  04:23       │  │  20:47       │   │
+  │  └──────────────┘  └──────────────┘   │
+  ├────────────────────────────────────────┤
+  │  İftara Kalan: Büyük countdown timer  │
+  │  Animasyonlu: Hilal → dolunay         │
+  │  (30 gün boyunca hilal büyür)         │
+  ├────────────────────────────────────────┤
+  │  Oruç Tutuldu mu? [Evet ✓] [Hayır]   │
+  │  Teravih: [Kılındı ✓] [Kılınmadı]   │
+  │  Hatim: [X] sayfa bugün okundu        │
+  ├────────────────────────────────────────┤
+  │  30 Gün Takvimi (LazyRow):            │
+  │  Her gün kutu → yeşil/gri/kırmızı     │
+  │  (kılındı/kılınmadı/kaza)             │
+  ├────────────────────────────────────────┤
+  │  Günün Ramazan Duası / Ayeti          │
+  └────────────────────────────────────────┘
+
+ÖZELLİKLER:
+  • İmsak/Sühur countdown (sabah namazı öncesi uyarı)
+  • İftar countdown (animasyonlu geri sayım)
+  • Her iftar: Bismillah ile iftar açma duası otomatik pop-up
+  • 30 günlük oruç takvimi (kaza kaydı)
+  • Teravih takibi (20 rekat ayrı ayrı)
+  • Hatim takibi (30 cüz, her cüz işaretlenebilir)
+  • Ramazan'da "Deen Modu": Ekran sadelik modu
+    (bildirimler azaltılır, zikir öne çıkar)
+  • Otomatik Ramazan özel duaları (her gün farklı)
+  • Kadir Gecesi sayaç (27. gece vurgulu)
+  • Ramazan bitti → Bayram tebrik animasyonu (Lottie)
+
+VERİ MODELİ:
+  @Entity
+  data class RamazanGunEntity(
+      @PrimaryKey val tarih: LocalDate,
+      val orucTutuldu: Boolean,
+      val teravihKilindi: Boolean,
+      val teravihRekat: Int,
+      val hatimSayfa: Int,
+      val zikirSayisi: Int,
+      val notlar: String
+  )
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM D: MANEVİ GÜNLÜK — "KALBIMIN DEFTERİ"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Günlük manevi düşünce, şükür ve tefekkür günlüğü.
+  Room DB → tamamen local, hiçbir veri dışarı çıkmaz.
+  (Muslim Pro Journal + mood tracker konsepti — offline)
+
+GunlukEntry data class:
+  data class GunlukEntry(
+      val id: Long = 0,
+      val tarih: LocalDate,
+      val ruhHali: RuhHali,          // yukarıdaki enum
+      val ruhHaliPuani: Int,         // 1-10 manevi his
+      val sukurNotu: String,         // 3 şükür maddesi
+      val tefekkurNotu: String,      // günlük tefekkür
+      val niyetler: List<String>,    // yarın için niyetler
+      val gunAyeti: String,          // o gün okunan ayet
+      val gunZikirSayisi: Int,       // o günkü toplam zikir
+      val namazDurumu: List<Boolean> // 5 vakit [true/false]
+  )
+
+ManeviGunlukScreen.kt:
+  • Her gün için otomatik gün sonu hatırlatıcısı (21:00)
+  • Şükür kartı: "Bugün ne için şükrediyorum?" (3 madde)
+  • Ruh hali slider (1-10 manevi his puanı)
+  • Emoji ruh hali seçimi
+  • Serbest tefekkür yazısı (ayet/hadis ile ilgili)
+  • Niyet kutusu (yarın için)
+  
+  Haftalık özet:
+    • Ruh hali grafiği (Compose Charts LineChart)
+    • Ortalama manevi puan
+    • En çok şükür edilen şey (kelime skoru)
+    • Zikir istatistikleri
+  
+  Yıllık görünüm:
+    • GitHub contribution graph benzeri
+    • 365 gün ızgara → yazılan günler renkli
+    • Manevi yoğunluk renk skalası (yeşil = yüksek)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM E: İSLAMİ BİLGİ TESTI — "İLİM YARIŞMASI"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Gamified İslami bilgi testi. Tamamen offline JSON tabanlı.
+  Kadiri tarikatı, tasavvuf, fıkıh, Kuran, hadis soruları.
+  Streak sistemi, puan tablosu (Room — local).
+
+VERİ (assets/data/quiz.json):
+  Kategoriler:
+    1. Kadiri Tarikatı & Tasavvuf
+    2. Temel İslam Bilgisi
+    3. Kuran-ı Kerim
+    4. Hadis-i Şerif
+    5. İslam Tarihi & Siyer
+    6. Namaz & İbadet Bilgisi
+    7. Ahlak & Muamelat
+    8. Esmaül Hüsna Testi
+
+  Her soru:
+    {
+      "id": 1,
+      "kategori": "kadiri_tasavvuf",
+      "soru": "Kadiri tarikatının kurucusu kimdir?",
+      "secenekler": ["Hz. Ali", "Abdülkadir Geylani",
+                     "Bahauddin Nakşibend", "Hasan Basri"],
+      "dogruCevap": 1,
+      "aciklama": "Abdülkadir Geylani (1077-1166)...",
+      "zorluk": "KOLAY"
+    }
+
+QuizScreen.kt LAYOUT:
+  • Kategori seçim ekranı (card grid, her kategori ikonlu)
+  • Soru ekranı:
+    - İlerleme çubuğu (1/10, 2/10...)
+    - Soru metni (büyük, okunaklı)
+    - 4 şık (A/B/C/D buton, M3 Expressive)
+    - Cevap sonrası: yeşil/kırmızı flash + kısa açıklama
+    - Sonraki soru (spring geçiş animasyonu)
+  • Sonuç ekranı:
+    - Skor (büyük Lottie kutlama veya teselli)
+    - Doğru/yanlış dağılımı (pie chart)
+    - Yanlış soruların tekrarı
+  • Puan tablosu (local, Room'dan en yüksek skorlar)
+  • Günlük quiz streak
+  • Yanlış sorular: "Tekrar Çalış" özelliği
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM F: ZAMAN PLANLAYICI — "GÜNÜN İBADET TAKVİMİ"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Günün 24 saatini namaz vakitlerine göre otomatik böler.
+  Her vakit arası için önerilen ibadetleri gösterir.
+  Kullanıcı kendi programını ekleyebilir.
+
+DailyPlannerScreen.kt:
+  GÖRÜNÜM: Zaman çizelgesi (Timeline)
+  ─────────────────────────────
+  04:23 ── İMSAK
+    ↕  → Teheccüd namazı (2-8 rekat)
+    ↕  → Sabah ezkarı (kısa liste)
+  05:10 ── SABAH NAMAZI
+    ↕  → Sabah namazı sünneti
+    ↕  → Duha namazı vakti (güneş yükselince)
+  08:00 ── İstişrak vakti
+    ↕  → Kuran okuma önerisi
+    ...
+  12:15 ── ÖĞLE NAMAZI
+    ↕  → Öğle namazı sünneti
+    ↕  → Kaylule (öğle uykusu hadisi)
+  ...
+  20:47 ── AKŞAM NAMAZI (İFTAR)
+  22:30 ── YATSI NAMAZI
+    ↕  → Yatsı sünneti
+    ↕  → Vitir namazı
+    ↕  → Uyku ezkarı
+  ─────────────────────────────
+  
+  Özellikler:
+    • Her zaman dilimi kart tıklanınca → o ibadetin detayı
+    • "Tamamlandı" işaretleme (Room'a kayıt)
+    • Özel görev ekleme (kişisel ibadet planı)
+    • Günlük tamamlanma yüzdesi (HomeScreen widget'ına yansır)
+    • Haftalık ibadet programı görünümü
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM G: ANDROID HOME WİDGET'LERİ (Glance API)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Glance API (Jetpack Glance 1.1.x) ile Compose tabanlı widget'lar:
+
+WIDGET 1: Namaz Vakti Widget'ı (4x2)
+  • Bir sonraki namaz ismi + kalan süre (büyük)
+  • Tüm 5 vakit listesi (küçük)
+  • Hicri tarih
+  • Derin zümrüt arka plan, altın metin
+  • GlanceAppWidget + GlanceAppWidgetReceiver
+
+WIDGET 2: Zikirmatik Mini Widget'ı (2x2)
+  • Doğrudan ekrandan zikir sayma
+  • Bugünkü toplam zikir sayısı
+  • Tap → sayımı artırır (WorkManager DataStore ile sync)
+  • Radyal mini progress dairesi
+
+WIDGET 3: Günlük Ayet/Hadis Widget'ı (4x2)
+  • Her gün farklı ayet/hadis (local JSON, tarih hash ile seçilir)
+  • Arapça metin + Türkçe anlam
+  • Alt: isim (kaynak bilgisi)
+  • Parlak gradient arka plan (günün saatine göre değişir)
+
+WIDGET 4: Amel Defteri Özet Widget'ı (4x3)
+  • Bugün kılınan namaz sayısı (5'ten / X)
+  • Zikir sayısı
+  • Bahçe sağlık durumu (küçük bitki ikonu)
+  • Streak sayısı
+
+UYGULAMA:
+  // build.gradle.kts
+  implementation("androidx.glance:glance-appwidget:1.1.1")
+  implementation("androidx.glance:glance-material3:1.1.1")
+
+  // Her widget için AppWidgetProvider yerine GlanceAppWidget
+  class NamazWidget : GlanceAppWidget() {
+      @Composable
+      override fun Content() {
+          GlanceTheme {
+              Column(modifier = GlanceModifier.background(Color(0xFF0F3D2C))) {
+                  Text(text = "Bir Sonraki: Öğle", style = ...)
+                  Text(text = "02:34 kaldı", ...)
+              }
+          }
+      }
+  }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM H: ÖZEL NAMAZ FOCUS MODU
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Namaz vakti geldiğinde "Namaz Focus Modu" aktifleşir.
+  Ekran sade ve huzurlu bir modda açılır.
+  (Just Pray "Prayer Focus" konsepti — tamamen local kod)
+
+NamazFocusScreen.kt:
+  Tam ekran, karanlık İslami arka plan:
+  • Büyük Kabe veya arabesk SVG arka plan
+  • "Namaz Vakti Geldi" — Amiri font, 36sp
+  • Namaz ismi (Öğle Namazı) — 28sp, altın rengi
+  • İlçe/şehir ve vakit
+  • Kıble yönü ok işareti (sensor ile)
+  • "Namaza Durdum" büyük yeşil butonu
+    → Tıklayınca: namaz kılındı Room'a kaydedilir
+    → Hasenât Bahçesi'ne etki eder
+    → Timer başlar (kaç dakika sürdü)
+  • "Daha Sonra Hatırlat" (15 dk sonra tekrar bildirim)
+  
+  NotificationCompat.Action ile bildirimden direkt açılır.
+  Android 14+ Notification Full Screen Intent.
+
+EKSTRA: KAZA NAMAZI HESAPLAYICI
+  Kullanıcı "Kaç yıldır namaz kılıyorum?" girer.
+  Tahmini kaza namazı (yıl × 365 × 5 vakit)
+  Günlük fazladan kılınacak kaza hedefi belirlenir.
+  İlerleme takibi (Room'da).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM I: GELİŞMİŞ KURAN BÖLÜMLERİ (OFFLINE JSON)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FARZ: HİÇBİR KURAN API'SI KULLANILMAYACAK.
+Tüm Kuran içeriği assets/data/quran_tr.json olarak embed.
+(Açık kaynak Kuran JSON'ları — Türkçe mealli, tamamen ücretsiz)
+
+Kuran JSON yapısı (quran_tr.json):
+  [{
+    "surah": 1,
+    "name_arabic": "الفاتحة",
+    "name_turkish": "Fatiha",
+    "verses": [{
+      "verse": 1,
+      "arabic": "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ",
+      "turkish_meaning": "Rahman ve Rahim olan Allah'ın adıyla",
+      "transliteration": "Bismillâhirrahmânirrahîm"
+    }]
+  }]
+
+QuranBolumler.kt içinde:
+  ── Fatiha Suresi tam metin (özellikle öne çıkarılan)
+  ── Namaz'da okunan sureler (İhlas, Felak, Nas, Kafirun...)
+  ── Günün ayeti (tarih hash ile her gün farklı)
+  ── Ayetel Kürsi (büyük, özel görünüm)
+  ── Amenerresulü (Bakara son 2 ayet)
+  ── Yasin (özel okuma modu)
+  ── Tebarek (Mülk Suresi — yatsı sonrası okunma hatırlatıcısı)
+  ── Kahf Suresi (Cuma günü özel vurgu)
+  ── Kuran İndeks: Sure listesi (114 sure) + arama
+
+ÖZELLIKLER (API olmadan tamamen offline):
+  • Sure okuma (RTL, Amiri font, sayfa görünümü)
+  • Yer imi (Room'a kayıt)
+  • Kaldığım yer (DataStore)
+  • Ayet kopyalama + paylaşma
+  • Ses: assets/audio/ klasöründe offline mp3
+         (Fatiha, İhlas, Felak, Nas, Ayetel Kürsi — embed)
+  • Ayet not alma (Room'a kayıt)
+  • Tefsir özeti (JSON'da kısa tefsir notu)
+  • Hatim takibi (30 cüz, her biri işaretlenebilir)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM J: PAYLAŞMA & SOSYALLEŞTİRME SİSTEMİ
+               (Sadece Share butonu — sosyal medya değil)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PAYLAŞILABİLİR KARTLAR (ShareCard.kt):
+  Compose ile Beautiful görsel kart oluşturma:
+  Canvas + Compose → Bitmap → ShareCompat.IntentBuilder
+
+  Kart tipleri (otomatik oluşturulan görseller):
+  1. Ayet Kartı:
+     - Derin zümrüt/altın gradient arka plan
+     - Arabesk çerçeve (SVG/Canvas)
+     - Arapça ayet (büyük, Amiri)
+     - Türkçe meal
+     - Alt: "Sure: Fatiha 1/7" + uygulama adı
+
+  2. Zikir Sonuç Kartı:
+     - "Bugün XXX kez Sübhanallah zikretti"
+     - Hasenât Bahçesi mini görüntüsü
+     - Tarih + uygulama adı
+
+  3. Dua Paylaşım Kartı:
+     - Dua Arapça metni
+     - Türkçe anlamı
+     - Kaynak bilgisi
+
+  4. Streak Kartı:
+     - "X Gün Üst Üste Namaz!"
+     - Ateş animasyonu (statik bitmap için flame SVG)
+
+  Bitmap oluşturma kodu:
+    fun Composable.toBitmap(width: Int, height: Int): Bitmap {
+        val picture = Picture()
+        val canvas = picture.beginRecording(width, height)
+        // Compose draw to canvas
+        picture.endRecording()
+        return Bitmap.createBitmap(picture.width, picture.height,
+                                   Bitmap.Config.ARGB_8888)
+    }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM K: SİYER-İ NEBEVİ — PEYGAMBER HAYATI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Hz. Peygamber'in hayatı → kronolojik zaman çizelgesi
+  Tamamen offline JSON veri
+  (İngilizce/Arapça kaynaklarda çok popüler özellik)
+
+SiyerScreen.kt:
+  Zaman çizelgesi UI (Timeline Widget — özel Canvas):
+    Doğum (571) → Vahiy (610) → Hicret (622) → Vefat (632)
+  
+  Her olay kartı:
+    • Hicri/Miladi yıl
+    • Olay başlığı
+    • Kısa açıklama (JSON'dan)
+    • Önem derecesi (major/minor event — ikon boyutu)
+  
+  Kategoriler:
+    • Mekke Dönemi
+    • Hicret
+    • Medine Dönemi
+    • Gazalar (Savaşlar)
+    • Veda Haccı
+  
+  Arama özelliği (olay adı veya yıl)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM L: ZEKÂT HESAPLAYICI (Offline Hesaplama)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Hiçbir dış API yok. Tüm hesaplama algoritmik.
+  Nisap değeri kullanıcı girer (güncel altın/gümüş fiyatını
+  kullanıcı kendisi girer → tamamen offline).
+
+ZekatScreen.kt:
+  Input alanları:
+    • Altın miktarı (gram)
+    • Gümüş miktarı (gram)
+    • Nakit para (TL)
+    • Ticaret malı değeri
+    • Hisseler / yatırım
+    • Kira geliri
+    • Borçlar (çıkarılacak)
+  
+  Nisap oranı: 85g altın veya 595g gümüş
+  Zekât oranı: %2.5
+  
+  Sonuç:
+    • Zekât yükümlüsü musunuz? (Evet/Hayır)
+    • Ödenecek zekât miktarı
+    • Açıklama + kaynak
+  
+  Miras Hesaplayıcı:
+    Varisler seçilir (anne, baba, eş, çocuklar)
+    İslam miras hukuku formülü → her varisin payı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM M: KADİRİ VİRD & HATM-İ HÂCEGÂN REHBER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KONSEPT:
+  Kadiri tarikatına özgü, sadece bu uygulamada olan ÖZEL bölüm.
+  Güncellenen el kitabı içeriğinden vird ve hatim bilgileri.
+
+VirdScreen.kt:
+  Sabah Virdi:
+    • Adım adım sıralı uygulama listesi
+    • Her adım: ayet/zikir metni (Arapça + Türkçe)
+    • İlerleme takibi (hangi adımdayım?)
+    • Ses rehberi (embedded offline audio)
+    • Tahmini süre (XX dakika)
+    
+  Akşam Virdi:
+    • Aynı yapı, akşam versiyonu
+  
+  Hatm-i Hâcegân:
+    • Adım adım rehber
+    • Her adımda ilgili zikir sayısı
+    • Zikirmatik entegrasyonu (adıma tıklayınca
+      zikirmatik otomatik doğru zikir ve sayıya ayarlanır)
+    • Gruplarda okunacak kısımlar işaretlenmiş
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM N: GELİŞMİŞ BİLDİRİM SİSTEMİ (Akıllı Zamanlama)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"AKILLI BİLDİRİM MATRİSİ" (tamamen AlarmManager + WorkManager):
+
+NAMAZ BİLDİRİMLERİ:
+  • X dakika önce: "XX dakika sonra Öğle vakti"
+  • Vakitte: Tam ezan bildirimi (ses + titreşim)
+  • Vakit çıkıyor: "Öğle vakti XX dakika sonra çıkıyor!"
+  X değeri kullanıcı tarafından ayarlanabilir (0/5/10/15/20/30 dk)
+
+GÜNLÜK İBADET HATIRLATIcıLARI:
+  • 09:00 → "Sabah ezkarınızı okudunuz mu?"
+  • 17:00 → "Akşam ezkarı vakti yaklaşıyor"
+  • 21:00 → "Günlük zikirlerinizi tamamladınız mı?"
+  • Özelleştirilebilir saatler
+
+RAMAZAN ÖZEL BİLDİRİMLERİ:
+  • İmsak 10 dk önce: "Sühur için son 10 dakika!"
+  • İmsak: "İmsak oldu — oruç başladı"
+  • İftar 5 dk önce: "İftara 5 dakika kaldı!"
+  • İftar: "İftar vakti — Bismillah" + dua
+
+HAFIZA BİLDİRİMLERİ (Akıllı):
+  • Bahçede bitki sararmaya başladıysa → akşam hatırlatıcı
+  • 3 gün zikir girilmediyse → "Zikirmatik sizi bekliyor"
+  • Haftalık özet (Pazar sabahı): "Bu hafta X zikir..."
+
+NotificationScheduler.kt:
+  AlarmManager.setAlarmClock() → hassas namaz bildirimi
+  WorkManager.setPeriodicWork() → günlük rutin bildirimler
+  Notification.Builder → büyük ikon, İslami stil
+  NotificationCompat.Action → "Kılındı" direct action (Room'a yaz)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM O: ULTRGELİŞMİŞ ZİKİRMATİK EK ÖZELLİKLERİ
+               (Önceki prompt'taki zikirmatike EKLENECEK)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ÇOK ADIMLI ZİKİR ROTASI (Kadiri Özel):
+  Arka arkaya birden fazla zikir → tek oturumda
+  Örnek: Sübhanallah(33) → Elhamdülillah(33) → Allahüekber(33) → La ilahe illallah(100)
+  Her tamamlanınca otomatik sıradaki zikire geçer
+  Toplam ilerleme çubuğu (dış büyük arc)
+
+ZİKİR YARIŞMASI MODU:
+  Hedef: X dakikada kaç zikir?
+  CountDown timer + zikir sayacı birlikte çalışır
+  Sonuç: "X dakikada Y zikir" → Room'a kayıt
+
+ZİKİR NEFES MOD (Manevi Meditasyon):
+  Zikirle senkronize nefes rehberi:
+  "Al nefes" (4 saniye) → zikir oku → "Ver nefes" (4 saniye)
+  Animasyonlu daire (büyüyüp küçülür — nefes ritmi)
+  Arka plan: Binaural-benzeri ses (local audio, ney/su sesi)
+
+OTOMATIK ZİKİR MODU (Hands-free):
+  Kullanıcı telefonu hafifçe sallayarak sayar
+  SensorManager TYPE_ACCELEROMETER → sallanma tespiti
+  Her hareketle: sayım + haptic
+
+GECE ZİKİR MODU:
+  Saat 22:00 sonrası otomatik devreye girer:
+  • Ekran parlaklığı %10'a iner (screen_brightness paketi)
+  • Renkler daha sıcak (WarmAmber filtre)
+  • Sesler çok kısık (AudioManager stream volume)
+  • "Teheccüd zikirlerine hazırlan" modali
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM P: GELİŞMİŞ OKUMA MODELERİ (El Kitabı)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EL KİTABI OKUMA MODU EKLENTİLERİ:
+  
+  KİTAP NOTLARI SİSTEMİ:
+    Kullanıcı herhangi metni seç → not ekle
+    Room'da: {sayfaId, secilenMetin, notMetni, tarih}
+    Notlar sayfası: tüm notların listesi
+    Not olan satırlar highlight rengi (subtle altın)
+  
+  SATIRBİÇİMİ VURGULAMASı (Highlighting):
+    Metne uzun basınca: renk seçici
+    Sarı / Yeşil / Mavi vurgu rengi
+    Room'da: {sayfaId, baslangicOffset, bitisOffset, renk}
+    Tüm vurgular sayfada tekrar gösterilir
+  
+  TAHMİNİ OKUMA SÜRESİ:
+    Her bölüm için: "~X dakika okuma"
+    (kelime sayısı / 200 kelime/dakika)
+  
+  DİNLEYEREK OKUMA (Text-to-Speech):
+    Android TTS (TextToSpeech) — hiçbir API yok, tamamen sistem:
+    Türkçe TTS sesi ile el kitabı sesli okunur
+    Arapça metinler: ar-SA locale ile TTS
+    Hız kontrolü: 0.5x, 0.75x, 1x, 1.25x
+    Arka planda devam eder (MediaSession)
+  
+  OFFLİNE ARAMA (Tam Metin):
+    Room FTS4 (Full-Text Search) → tüm el kitabında arama
+    Arama terimi highlight edilmiş sonuçlar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM R: ANDROID LOCK SCREEN & ALWAYS-ON ÖZELLIKLER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KİLİT EKRANI BİLDİRİMİ (Custom Notification Style):
+  BigTextStyle bildirimi:
+    Başlık: "Bir sonraki namaz: Öğle — 14:15"
+    Metin: Günün ayeti (kısa)
+    Alt: Hicri tarih
+    
+  Action butonları:
+    [Kılındı ✓]  [Kıble →]  [Zikir 📿]
+    Her aksiyon direkt Room'a yazar, uygulama açılmaz
+
+ANDROID 12+ LOCKSCREEN WİDGET:
+  RemoteViews tabanlı bildirim widget'ı
+  Namaz vakitleri + zikir sayacı
+
+DİNAMİK DUVAR KAĞIDI ENTEGRASYONİ:
+  WallpaperManager ile günlük İslami ayet wallpaper
+  (Kullanıcı izin verirse — opsiyonel özellik)
+  Compose ile oluşturulan Bitmap → duvar kağıdı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM S: ERİŞİLEBİLİRLİK + YAŞLI KULLANICI MODU
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BASİT MOD (Yaşlı/Görme Zorluğu Çekenler İçin):
+  Ayarlardan tek tuşla aktif:
+  • Font boyutu: minimum 20sp (tüm metinler)
+  • Butonlar: minimum 64dp × 64dp
+  • Kontrast: %150 artırılmış
+  • Animasyonlar: devre dışı (Reduce Motion)
+  • Basit navigasyon (bottom bar yerine büyük butonlar)
+  • Zikirmatik: TAP ALANI tam ekran (tek parmak kolay)
+
+YÜKSEK KONTRAST TEMA:
+  • Arka plan: tam siyah (#000000)
+  • Metin: tam beyaz (#FFFFFF)
+  • Birincil: parlak sarı (#FFFF00)
+  • Borders: belirgin, 2dp+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM T: VERİ YEDEKLEME & EXPORT SİSTEMİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OTOMATİK YEDEKLEME (Tamamen local, hiçbir bulut yok):
+  Haftada bir: WorkManager → Room DB → JSON export
+  Dosya: /Documents/KadiriElKitabi/yedek_YYYY-MM-DD.json
+
+İçerik:
+  {
+    "yedekTarihi": "2026-06-12",
+    "zikirOturumlari": [...],
+    "yerImleri": [...],
+    "ozelZikirler": [...],
+    "gunlukAmel": [...],
+    "notlar": [...],
+    "vurgular": [...],
+    "maneviGunluk": [...]
+  }
+
+GERİ YÜKLEME:
+  JSON dosyası seçilir → Room'a import
+  Çakışma stratejisi: tarih bazlı (yeni olan kazanır)
+
+PDF EXPORT (PrintManager):
+  Amel defteri → PDF raporu
+  El kitabı notları → PDF export
+  Android PrintManager API → tamamen sistem, API yok
+
+PAYLAŞMA: SAR.zip → arkadaşa WhatsApp/mail ile gönder
+  (yer imleri ve notlar paylaşılabilir)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM U: ONBOARDING İYİLEŞTİRMELERİ + PERSONALİZASYON
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GELİŞMİŞ ONBOARDING (ilk kurulumda bir kez):
+  Sayfa 1: Bismillah Lottie animasyonu + karşılama
+  Sayfa 2: Kendinizi tanıtın:
+    • "Kadiri müntesibi misiniz?" (Evet/Hayır/Araştırıyorum)
+    • "Tarikata ne zamandır bağlısınız?"
+    • Bu cevaplara göre ana sayfa içeriği özelleşir
+  Sayfa 3: Hedef belirleme:
+    • Günlük zikir hedefi (seçici: 33/99/100/500/1000/Özel)
+    • Sabah/akşam hatırlatıcı saati
+    • Namaz bildirimleri aktif/pasif
+  Sayfa 4: Şehir seçimi (namaz vakitleri için)
+  Sayfa 5: Tema + dil seçimi
+  
+  Tüm bu bilgiler DataStore'a kaydedilir.
+  Bir daha gösterilmez.
+
+KİŞİSELLEŞTİRİLMİŞ ANA SAYFA:
+  Müntesip değilse → "Kadiri tarikatını öğren" kartı öne çıkar
+  Müntesipse → Vird ve hatim öne çıkar
+  Günün ilk açılışı (sabah): Sabah ezkarı pop-up teklifi
+  Gece açılışı: Akşam ezkarı + uyku duası teklifi
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YENİ BÖLÜM V: PERFORMANS OPTİMİZASYON — EK DETAYLAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STARTUP OPTİMİZASYONU (App Startup Süresi):
+  • App Startup library (androidx.startup) ile
+    Hilt, Room, DataStore lazy init
+  • Baseline Profile (app/baseline-prof.txt):
+    Ana navigasyon, HomeScreen, ZikirMatik için
+    ./gradlew generateBaselineProfile ile oluştur
+  • R8 full mode ile APK boyutunu küçült
+
+BELLEK OPTİMİZASYONİ:
+  • Büyük JSON dosyaları (Kuran): Dispatchers.IO ile parse
+  • Bitmap'ler: inSampleSize ile küçültülmüş yükleme
+  • Lottie: LottieConstants.IterateForever sadece aktif ekranda
+  • SoundPool: destroy() onCleared() içinde
+
+UYGULAMA BOYUTU:
+  • Kullanılmayan font varyantları: font-subset (sadece kullanılan karakterler)
+  • Audio: AAC/Opus format (MP3'ten %40 küçük)
+  • PNG'ler: WebP formatına çevir
+  • Vector Drawable: tüm ikonlar için PNG yerine
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 3 EK BAĞIMLILIKLAR (libs.versions.toml eklentileri)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[versions'a eklenecekler]
+glance               = "1.1.1"
+startup              = "1.2.0"
+room-fts             = "2.7.1"   # Room FTS4 (aynı room versiyonu)
+baseline-profile     = "1.3.4"
+
+[libraries'e eklenecekler]
+glance-appwidget     = { group="androidx.glance", name="glance-appwidget",      version.ref="glance" }
+glance-material3     = { group="androidx.glance", name="glance-material3",      version.ref="glance" }
+startup-runtime      = { group="androidx.startup", name="startup-runtime",      version.ref="startup" }
+# Room FTS zaten room bağımlılığı ile gelir — ek bağımlılık yok
+# SensorManager → Android SDK (bağımlılık yok)
+# TextToSpeech → Android SDK (bağımlılık yok)
+# PrintManager → Android SDK (bağımlılık yok)
+# WallpaperManager → Android SDK (bağımlılık yok)
+# SoundPool → Android SDK (bağımlılık yok)
+
+[plugins'e eklenecekler]
+baseline-profile     = { id="androidx.baselineprofile", version.ref="baseline-profile" }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EK MANİFEST İZİNLERİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+<uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+<uses-permission android:name="android.permission.SET_WALLPAPER" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    android:maxSdkVersion="28" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    android:maxSdkVersion="32" />
+<uses-permission android:name="android.permission.BODY_SENSORS" />
+<!-- Sallanma algılama için accelerometer — özel izin gerekmez -->
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EK ROOM ENTITY'LERİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@Database'e eklenecek entity'ler:
+  HasenatBitkiEntity::class,      // Hasenât Bahçesi
+  GunlukEntryEntity::class,       // Manevi Günlük
+  QuizSkorEntity::class,          // Quiz skorları
+  SatirVurguEntity::class,        // El kitabı highlight
+  SatirNotEntity::class,          // El kitabı notları
+  RamazanGunEntity::class,        // Ramazan takibi
+  KazaNamaziEntity::class,        // Kaza takibi
+  GunlukPlanEntity::class,        // İbadet planlayıcı
+  ZekatHesapEntity::class,        // Zekât geçmişi
+  SiyerFavoriEntity::class,       // Favori siyer olayları
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NAVIGATION ROUTE EKLENTİLERİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@Serializable object HasenatBahcesiRoute
+@Serializable object MoodDuaRoute
+@Serializable object RamazanRoute
+@Serializable object ManeviGunlukRoute
+@Serializable object QuizMenuRoute
+@Serializable data class QuizRoute(val kategori: String)
+@Serializable object GunlukPlanRoute
+@Serializable object SiyerRoute
+@Serializable object ZekatRoute
+@Serializable object KazaNamaziRoute
+@Serializable object VirdRehberRoute
+@Serializable object NamazFocusRoute
+@Serializable object QuranEkranRoute
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HOME SCREEN FEATURE GRID — GÜNCELLENMİŞ FULL LİSTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FeatureItem listesi (ana sayfada grid):
+  1.  📖 El Kitabı
+  2.  📿 Zikirmatik
+  3.  🤲 Dualar
+  4.  🕌 Namaz Vakitleri
+  5.  🧭 Kıble
+  6.  📅 Hicri Takvim
+  7.  ✨ Esmaül Hüsna
+  8.  🔗 Silsile-i Şerif
+  9.  🎵 Kadiri İlahileri
+  10. 📊 Amel Defteri
+  11. 🌸 Hasenât Bahçesi   ← YENİ
+  12. 💭 Ruh Hali Duası    ← YENİ
+  13. 🌙 Ramazan Modu      ← YENİ
+  14. 📔 Manevi Günlük     ← YENİ
+  15. ❓ İlim Yarışması    ← YENİ
+  16. ⏰ İbadet Planlayıcı ← YENİ
+  17. 📖 Kuran Sureler     ← YENİ
+  18. 🕐 Siyer-i Nebevi    ← YENİ
+  19. 💰 Zekât Hesap       ← YENİ
+  20. 📿 Vird Rehberi      ← YENİ (KADİRİ ÖZEL)
+  21. ❓ Sıkça Sorulanlar
+  22. ⚙️  Ayarlar
+
+  LazyVerticalGrid(GridCells.Adaptive(150.dp))
+  ile otomatik ızgara — her ekran boyutuna uyumlu
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ÖNCELİK SIRASI (Hangi özelliği önce kodla)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FAZA 1 (Temel — mevcut sorunları düzelt):
+  ✅ Clean Architecture + Hilt DI
+  ✅ Room DB + DataStore
+  ✅ Tema sistemi (M3 Expressive + Amiri font)
+  ✅ Navigation (GoRouter)
+  ✅ El Kitabı (mevcut veri korunarak)
+  ✅ Zikirmatik (tam sistem)
+
+FAZA 2 (Önemli yeni özellikler):
+  🔹 Namaz Vakitleri (adhan offline)
+  🔹 Kıble pusulası
+  🔹 Dualar (duygu tabanlı)
+  🔹 Hasenât Bahçesi
+  🔹 Amel Defteri + grafikler
+  🔹 Home Widget'ları (Glance)
+
+FAZA 3 (Premium içerik):
+  🔶 Ramazan Modu
+  🔶 Manevi Günlük
+  🔶 İlim Yarışması
+  🔶 Kuran Bölümleri (offline JSON)
+  🔶 Vird Rehberi (Kadiri özel)
+  🔶 Siyer-i Nebevi
+
+FAZA 4 (Ultra premium):
+  ⭐ Zekât Hesaplayıcı
+  ⭐ Hatm-i Hâcegân Rehberi
+  ⭐ Paylaşım Kartları
+  ⭐ PDF Export
+  ⭐ Basit Mod (yaşlı kullanıcılar)
+  ⭐ Kaza Namazı Takibi
+
+╔══════════════════════════════════════════════════════════════════════╗
+║  Bu prompt'taki TÜM özellikler:                                      ║
+║  ✅ Tamamen offline / local çalışır                                  ║
+║  ✅ Herhangi bir API gerektirmez                                     ║
+║  ✅ Ücretli servis veya hesap gerektirmez                            ║
+║  ✅ Android SDK veya açık kaynak kütüphanelerle yapılabilir          ║
+║  ✅ Veri bütünlüğünü %100 korur                                      ║
+║  ✅ Mevcut Kotlin + Jetpack Compose projeyle uyumludur               ║
+╚══════════════════════════════════════════════════════════════════════╝
