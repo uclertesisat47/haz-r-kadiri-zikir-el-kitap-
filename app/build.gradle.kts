@@ -126,4 +126,9 @@ dependencies {
     implementation(libs.core.ktx)
 
     implementation(libs.kotlin.serialization.json)
+
+    // Glance — Home Screen Widgets
+    implementation(libs.glance.appwidget)
+    implementation(libs.glance.material3)
+    implementation(libs.startup.runtime)
 }

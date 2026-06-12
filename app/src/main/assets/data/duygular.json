@@ -1,0 +1,322 @@
+{
+  "ruhHali": [
+    {
+      "id": "uzgun",
+      "emoji": "😔",
+      "isim": "Üzgün",
+      "renk": "#4A90D9",
+      "dualar": [
+        {
+          "arabicText": "اللَّهُمَّ إِنِّي عَبْدُكَ وَابْنُ عَبْدِكَ وَابْنُ أَمَتِكَ، نَاصِيَتِي بِيَدِكَ، مَاضٍ فِيَّ حُكْمُكَ، عَدْلٌ فِيَّ قَضَاؤُكَ",
+          "turkishMeaning": "Allah'ım! Ben senin kulunum, kulunun oğluyum, cariyenin oğluyum. Alnım senin elindedir. Hakkımdaki hükmün geçerlidir, hakkımdaki kazân adildir.",
+          "kaynak": "Ahmed, Müsned 3528",
+          "sesResId": "dua_uzuntu_001"
+        },
+        {
+          "arabicText": "أَعُوذُ بِاللَّهِ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ",
+          "turkishMeaning": "Tasa ve kederden, acizlik ve tembellikten Allah'a sığınırım.",
+          "kaynak": "Buhari 6369",
+          "sesResId": "dua_uzuntu_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Bakara",
+          "ayet": "153",
+          "arabicText": "يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ",
+          "turkishMeaning": "Ey iman edenler! Sabır ve namazla yardım isteyin."
+        },
+        {
+          "sure": "İnşirah",
+          "ayet": "5-6",
+          "arabicText": "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+          "turkishMeaning": "Şüphesiz, zorlukla birlikte bir kolaylık vardır. Gerçekten, zorlukla birlikte bir kolaylık vardır."
+        }
+      ]
+    },
+    {
+      "id": "endiseli",
+      "emoji": "😰",
+      "isim": "Endişeli",
+      "renk": "#7B68EE",
+      "dualar": [
+        {
+          "arabicText": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+          "turkishMeaning": "Allah bize yeter, O ne güzel vekildir.",
+          "kaynak": "Buhari 4563",
+          "sesResId": "dua_endise_001"
+        },
+        {
+          "arabicText": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+          "turkishMeaning": "Güç ve kuvvet yalnızca Allah'a aittir.",
+          "kaynak": "Buhari 6384",
+          "sesResId": "dua_endise_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Talak",
+          "ayet": "3",
+          "arabicText": "وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ",
+          "turkishMeaning": "Kim Allah'a tevekkül ederse O, ona yeter."
+        }
+      ]
+    },
+    {
+      "id": "sinirli",
+      "emoji": "😤",
+      "isim": "Sinirli",
+      "renk": "#FF6347",
+      "dualar": [
+        {
+          "arabicText": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ",
+          "turkishMeaning": "Kovulmuş şeytandan Allah'a sığınırım.",
+          "kaynak": "Buhari 3282",
+          "sesResId": "dua_sinir_001"
+        },
+        {
+          "arabicText": "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي وَأَذْهِبْ غَيْظَ قَلْبِي",
+          "turkishMeaning": "Allah'ım! Günahımı bağışla ve kalbimin öfkesini gider.",
+          "kaynak": "İbn Sunni 476",
+          "sesResId": "dua_sinir_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Al-i İmran",
+          "ayet": "134",
+          "arabicText": "وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ",
+          "turkishMeaning": "Onlar öfkelerini yutanlar ve insanları affedenlerdir."
+        }
+      ]
+    },
+    {
+      "id": "yorgun",
+      "emoji": "😴",
+      "isim": "Yorgun",
+      "renk": "#20B2AA",
+      "dualar": [
+        {
+          "arabicText": "حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",
+          "turkishMeaning": "Allah bana yeter. O'ndan başka ilah yoktur. Ona dayandım. O, büyük Arş'ın Rabbidir.",
+          "kaynak": "Ebu Davud 5081",
+          "sesResId": "dua_yorgun_001"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Zümer",
+          "ayet": "53",
+          "arabicText": "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ",
+          "turkishMeaning": "Allah'ın rahmetinden ümit kesmeyin."
+        }
+      ]
+    },
+    {
+      "id": "mutlu",
+      "emoji": "😊",
+      "isim": "Mutlu",
+      "renk": "#FFD700",
+      "dualar": [
+        {
+          "arabicText": "الْحَمْدُ لِلَّهِ الَّذِي بِنِعْمَتِهِ تَتِمُّ الصَّالِحَاتُ",
+          "turkishMeaning": "İyiliklerin O'nun nimeti sayesinde tamamlandığı Allah'a hamdolsun.",
+          "kaynak": "İbn Mace 3803",
+          "sesResId": "dua_mutlu_001"
+        },
+        {
+          "arabicText": "اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ، فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ",
+          "turkishMeaning": "Allah'ım! Sabahladığımda bende bulunan her nimet yalnızca Senden'dir. Ortağın yoktur. Sana hamd, Sana şükür olsun.",
+          "kaynak": "Ebu Davud 5073",
+          "sesResId": "dua_mutlu_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "İbrahim",
+          "ayet": "7",
+          "arabicText": "لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ",
+          "turkishMeaning": "Eğer şükrederseniz elbette size nimetimi artırırım."
+        }
+      ]
+    },
+    {
+      "id": "hasta",
+      "emoji": "🤒",
+      "isim": "Hasta",
+      "renk": "#98FB98",
+      "dualar": [
+        {
+          "arabicText": "اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ، اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا",
+          "turkishMeaning": "Allah'ım, insanların Rabbi! Hastalığı gider. Şifa ver. Şifa veren yalnız Sensin. Senin şifandan başka şifa yoktur. Hiçbir hastalık bırakmayan bir şifa ver.",
+          "kaynak": "Buhari 5742",
+          "sesResId": "dua_hasta_001"
+        },
+        {
+          "arabicText": "بِسْمِ اللَّهِ أَرْقِيكَ مِنْ كُلِّ شَيْءٍ يُؤْذِيكَ وَمِنْ شَرِّ كُلِّ نَفْسٍ أَوْ عَيْنِ حَاسِدٍ اللَّهُ يَشْفِيكَ",
+          "turkishMeaning": "Seni inciten her şeyden, her nefsin ve kıskanç gözün şerrinden Allah'ın adıyla seni okuyor ve Allah'ın seni şifa vermesini diliyorum.",
+          "kaynak": "Müslim 2186",
+          "sesResId": "dua_hasta_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Yunus",
+          "ayet": "57",
+          "arabicText": "وَشِفَاءٌ لِّمَا فِي الصُّدُورِ",
+          "turkishMeaning": "Ve göğüslerde olanlara şifadır."
+        }
+      ]
+    },
+    {
+      "id": "gunahkar",
+      "emoji": "😟",
+      "isim": "Günahkâr",
+      "renk": "#DDA0DD",
+      "dualar": [
+        {
+          "arabicText": "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+          "turkishMeaning": "Kendisinden başka ilah bulunmayan, Hay ve Kayyum olan Allah'tan bağışlanmamı diliyor ve O'na tövbe ediyorum.",
+          "kaynak": "Tirmizi 3577",
+          "sesResId": "dua_tovbe_001"
+        },
+        {
+          "arabicText": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ",
+          "turkishMeaning": "Allah'ım! Sen benim Rabbimsin. Senden başka ilah yoktur. Beni Sen yarattın. Ben Senin kulunum. Gücüm yettiğince Sana verdiğim söz ve ahdim üzerindeyim. Yaptıklarımın şerrinden Sana sığınırım.",
+          "kaynak": "Buhari 6306 — Seyyidu'l-İstiğfar",
+          "sesResId": "dua_tovbe_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Zümer",
+          "ayet": "53",
+          "arabicText": "إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا",
+          "turkishMeaning": "Şüphesiz Allah bütün günahları bağışlar."
+        }
+      ]
+    },
+    {
+      "id": "kararsiz",
+      "emoji": "🤔",
+      "isim": "Kararsız",
+      "renk": "#F4A460",
+      "dualar": [
+        {
+          "arabicText": "اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ",
+          "turkishMeaning": "Allah'ım! İlminle Senden hayır diliyorum. Kudretinle güç istiyorum. Büyük lütfundan istiyorum.",
+          "kaynak": "Buhari 1162 — İstihare Duası",
+          "sesResId": "dua_istiare_001"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Taha",
+          "ayet": "114",
+          "arabicText": "رَّبِّ زِدْنِي عِلْمًا",
+          "turkishMeaning": "Rabbim! İlmimi artır."
+        }
+      ]
+    },
+    {
+      "id": "kirilmis",
+      "emoji": "💔",
+      "isim": "Kırılmış",
+      "renk": "#B0C4DE",
+      "dualar": [
+        {
+          "arabicText": "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا",
+          "turkishMeaning": "Şüphesiz biz Allah'a aidiz ve O'na döneceğiz. Allah'ım! Musibetimde bana ecir ver ve ondan daha hayırlısını nasip et.",
+          "kaynak": "Müslim 918",
+          "sesResId": "dua_musibet_001"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Bakara",
+          "ayet": "155-157",
+          "arabicText": "وَبَشِّرِ الصَّابِرِينَ الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ",
+          "turkishMeaning": "Sabredenleri müjdele. Onlar, başlarına bir musibet gelince 'Biz Allah'a aidiz ve O'na döneceğiz' derler."
+        }
+      ]
+    },
+    {
+      "id": "gece",
+      "emoji": "🌙",
+      "isim": "Gece",
+      "renk": "#191970",
+      "dualar": [
+        {
+          "arabicText": "اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا",
+          "turkishMeaning": "Allah'ım! Senin adınla ölür ve yaşarım.",
+          "kaynak": "Buhari 6312 — Uyku Duası",
+          "sesResId": "dua_uyku_001"
+        },
+        {
+          "arabicText": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+          "turkishMeaning": "Allah'ım, Sen her türlü eksiklikten münezzehsin. Seni hamd ile tesbih ederim. Senden başka ilah olmadığına şahitlik ederim. Senden bağışlanma diler ve Sana tövbe ederim.",
+          "kaynak": "Tirmizi 3433",
+          "sesResId": "dua_uyku_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "İsra",
+          "ayet": "79",
+          "arabicText": "وَمِنَ اللَّيْلِ فَتَهَجَّدْ بِهِ نَافِلَةً لَّكَ",
+          "turkishMeaning": "Gecenin bir bölümünde de uyanarak sana özgü nafile olarak teheccüd namazı kıl."
+        }
+      ]
+    },
+    {
+      "id": "yolculuk",
+      "emoji": "🛫",
+      "isim": "Yolculukta",
+      "renk": "#87CEEB",
+      "dualar": [
+        {
+          "arabicText": "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنقَلِبُونَ",
+          "turkishMeaning": "Bunu bizim hizmetimize veren Allah'ı tesbih ederiz. Biz buna gücü yetebilir değildik. Şüphesiz biz Rabbimize döneceğiz.",
+          "kaynak": "Müslim 1342 — Yolculuk Duası",
+          "sesResId": "dua_yolculuk_001"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Bakara",
+          "ayet": "286",
+          "arabicText": "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا",
+          "turkishMeaning": "Rabbimiz! Unutur ya da yanılırsak bizi sorumlu tutma."
+        }
+      ]
+    },
+    {
+      "id": "ogrenme",
+      "emoji": "📚",
+      "isim": "Öğrenmek İstiyorum",
+      "renk": "#32CD32",
+      "dualar": [
+        {
+          "arabicText": "رَبِّ زِدْنِي عِلْمًا",
+          "turkishMeaning": "Rabbim! İlmimi artır.",
+          "kaynak": "Kuran, Taha 114",
+          "sesResId": "dua_ilim_001"
+        },
+        {
+          "arabicText": "اللَّهُمَّ انْفَعْنِي بِمَا عَلَّمْتَنِي، وَعَلِّمْنِي مَا يَنْفَعُنِي، وَزِدْنِي عِلْمًا",
+          "turkishMeaning": "Allah'ım! Bana öğrettiklerinle beni faydalandır, bana faydalı olacak şeyleri öğret ve ilmimi artır.",
+          "kaynak": "İbn Mace 251",
+          "sesResId": "dua_ilim_002"
+        }
+      ],
+      "ayetler": [
+        {
+          "sure": "Mücadele",
+          "ayet": "11",
+          "arabicText": "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ",
+          "turkishMeaning": "Allah, içinizden iman edenlerin ve kendilerine ilim verilenlerin derecelerini yükseltir."
+        }
+      ]
+    }
+  ]
+}

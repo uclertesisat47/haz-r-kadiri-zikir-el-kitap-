@@ -19,6 +19,24 @@ import kotlinx.serialization.Serializable
 @Serializable object AmelDefteriRoute
 @Serializable object AyarlarRoute
 
+// YENİ ROTALAR — Bölüm 2 & 3
+@Serializable object HasenatBahcesiRoute
+@Serializable object MoodDuaRoute
+@Serializable object RamazanRoute
+@Serializable object ManeviGunlukRoute
+@Serializable object QuizMenuRoute
+@Serializable data class QuizRoute(val kategori: String)
+@Serializable object GunlukPlanRoute
+@Serializable object SiyerRoute
+@Serializable object ZekatRoute
+@Serializable object KazaNamaziRoute
+@Serializable object VirdRehberRoute
+@Serializable object NamazFocusRoute
+@Serializable object QuranEkranRoute
+@Serializable object OnboardingRoute
+@Serializable object YedeklemeRoute
+@Serializable object PaylasimKartlariRoute
+
 // Bottom bar destinasyonlar
 val bottomBarRoutes = setOf(
     HomeRoute::class.qualifiedName,

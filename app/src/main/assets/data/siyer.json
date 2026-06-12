@@ -1,0 +1,173 @@
+{
+  "kategoriler": [
+    {"id": "mekke", "isim": "Mekke Dönemi", "renk": "#D4AF37"},
+    {"id": "hicret", "isim": "Hicret", "renk": "#FF8F00"},
+    {"id": "medine", "isim": "Medine Dönemi", "renk": "#2E7D52"},
+    {"id": "gazalar", "isim": "Gazalar", "renk": "#B71C1C"},
+    {"id": "veda", "isim": "Veda & Vefat", "renk": "#6A3D9A"}
+  ],
+  "olaylar": [
+    {
+      "id": 1,
+      "kategori": "mekke",
+      "miladi": 571,
+      "hicri": "-53",
+      "baslik": "Hz. Peygamber'in Doğumu",
+      "ozet": "Hz. Muhammed (s.a.v.), Fil Yılı'nda Mekke'de doğdu. Babası Abdullah daha önce vefat etmişti.",
+      "onem": "major"
+    },
+    {
+      "id": 2,
+      "kategori": "mekke",
+      "miladi": 576,
+      "hicri": "-48",
+      "baslik": "Annesinin Vefatı",
+      "ozet": "Hz. Peygamber 6 yaşındayken annesi Hz. Amine Medine yakınlarında vefat etti.",
+      "onem": "major"
+    },
+    {
+      "id": 3,
+      "kategori": "mekke",
+      "miladi": 578,
+      "hicri": "-46",
+      "baslik": "Dedesi Abdülmuttalib'in Vefatı",
+      "ozet": "8 yaşındayken dedesi vefat etti. Bundan sonra amcası Ebu Talib'in yanında yetişti.",
+      "onem": "orta"
+    },
+    {
+      "id": 4,
+      "kategori": "mekke",
+      "miladi": 595,
+      "hicri": "-29",
+      "baslik": "Hz. Hatice ile Evlilik",
+      "ozet": "Hz. Peygamber 25 yaşındayken ticaret yaptığı Hz. Hatice ile evlendi. Bu evlilik Hz. Hatice'nin vefatına kadar 25 yıl sürdü.",
+      "onem": "major"
+    },
+    {
+      "id": 5,
+      "kategori": "mekke",
+      "miladi": 610,
+      "hicri": "-13",
+      "baslik": "İlk Vahiy",
+      "ozet": "Hz. Muhammed (s.a.v.) 40 yaşındayken Hira Mağarası'nda Cebrail vasıtasıyla ilk vahyi aldı. 'Oku! Yaratan Rabbinin adıyla oku!' ayetleri nazil oldu.",
+      "onem": "major"
+    },
+    {
+      "id": 6,
+      "kategori": "mekke",
+      "miladi": 613,
+      "hicri": "-10",
+      "baslik": "Açık Davet",
+      "ozet": "Üç yıllık gizli davet döneminin ardından Hz. Peygamber açıkça insanları İslam'a davet etmeye başladı.",
+      "onem": "major"
+    },
+    {
+      "id": 7,
+      "kategori": "mekke",
+      "miladi": 619,
+      "hicri": "-4",
+      "baslik": "Hüzün Yılı",
+      "ozet": "Hz. Hatice ve amcası Ebu Talib aynı yıl vefat etti. Bu yıl 'Hüzün Yılı' olarak anılır.",
+      "onem": "major"
+    },
+    {
+      "id": 8,
+      "kategori": "mekke",
+      "miladi": 621,
+      "hicri": "-2",
+      "baslik": "İsra ve Miraç",
+      "ozet": "Hz. Peygamber bir gece Mescid-i Haram'dan Mescid-i Aksa'ya (İsra) ve oradan göklere (Miraç) götürüldü. 5 vakit namaz bu gece farz kılındı.",
+      "onem": "major"
+    },
+    {
+      "id": 9,
+      "kategori": "hicret",
+      "miladi": 622,
+      "hicri": "1",
+      "baslik": "Hicret",
+      "ozet": "Hz. Peygamber (s.a.v.) Mekke'den Medine'ye hicret etti. Bu tarih İslam takviminin başlangıcı kabul edilir.",
+      "onem": "major"
+    },
+    {
+      "id": 10,
+      "kategori": "medine",
+      "miladi": 622,
+      "hicri": "1",
+      "baslik": "Mescid-i Nebevi'nin İnşası",
+      "ozet": "Medine'ye vardıktan sonra ilk olarak Mescid-i Nebevi inşa edildi. Caminin yanına Hz. Peygamber'in odaları da yapıldı.",
+      "onem": "major"
+    },
+    {
+      "id": 11,
+      "kategori": "medine",
+      "miladi": 622,
+      "hicri": "1",
+      "baslik": "Medine Sözleşmesi",
+      "ozet": "Mekkelilerle (Muhacirler), Medinelilerle (Ensar) ve Yahudi kabilelerle imzalanan bu sözleşme tarihin ilk anayasası sayılır.",
+      "onem": "major"
+    },
+    {
+      "id": 12,
+      "kategori": "gazalar",
+      "miladi": 624,
+      "hicri": "2",
+      "baslik": "Bedir Gazvesi",
+      "ozet": "İslam tarihinin ilk büyük savaşı. 313 Müslüman, 950 kişilik Mekke ordusunu yendi. Kuran'da 'Furkan Günü' olarak anılır.",
+      "onem": "major"
+    },
+    {
+      "id": 13,
+      "kategori": "gazalar",
+      "miladi": 625,
+      "hicri": "3",
+      "baslik": "Uhud Gazvesi",
+      "ozet": "Müslümanlar önce üstünlük sağladı, ancak okçuların yerini terk etmesiyle savaş ağır kayıplarla bitti. Hz. Hamza bu savaşta şehit oldu.",
+      "onem": "major"
+    },
+    {
+      "id": 14,
+      "kategori": "gazalar",
+      "miladi": 627,
+      "hicri": "5",
+      "baslik": "Hendek Gazvesi",
+      "ozet": "Mekke'nin 10.000 kişilik ordusu Medine'yi kuşattı. Hz. Selman'ın önerisiyle kazılan hendek sayesinde kuşatma başarısız oldu.",
+      "onem": "major"
+    },
+    {
+      "id": 15,
+      "kategori": "medine",
+      "miladi": 628,
+      "hicri": "6",
+      "baslik": "Hudeybiye Antlaşması",
+      "ozet": "Mekke ile 10 yıllık barış antlaşması imzalandı. Görünürde Müslümanlara dezavantajlı gibi görünen bu antlaşma Kuran'da 'apaçık bir fetih' olarak nitelendirildi.",
+      "onem": "major"
+    },
+    {
+      "id": 16,
+      "kategori": "medine",
+      "miladi": 630,
+      "hicri": "8",
+      "baslik": "Mekke'nin Fethi",
+      "ozet": "Hudeybiye Antlaşması'nın bozulması üzerine Hz. Peygamber 10.000 kişilik orduyla Mekke'ye girdi. Kabe putlardan temizlendi. Büyük af ilan edildi.",
+      "onem": "major"
+    },
+    {
+      "id": 17,
+      "kategori": "veda",
+      "miladi": 632,
+      "hicri": "10",
+      "baslik": "Veda Haccı",
+      "ozet": "Hz. Peygamber'in tek ve son haccı. Arafat'ta tarihi Veda Hutbesi'ni irad etti. 'Bugün dininizi kemale erdirdim.' ayeti nazil oldu.",
+      "onem": "major"
+    },
+    {
+      "id": 18,
+      "kategori": "veda",
+      "miladi": 632,
+      "hicri": "11",
+      "baslik": "Hz. Peygamber'in Vefatı",
+      "ozet": "Hz. Peygamber (s.a.v.) 63 yaşında Medine'de vefat etti. Hz. Aişe'nin odasında defnedildi. Müslümanlar büyük üzüntüye büründü.",
+      "onem": "major"
+    }
+  ]
+}

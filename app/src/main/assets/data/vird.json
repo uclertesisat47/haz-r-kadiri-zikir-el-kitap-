@@ -1,0 +1,180 @@
+{
+  "sabahVirdi": {
+    "baslik": "Sabah Virdi",
+    "tahminiSure": "15-20 dakika",
+    "adimlar": [
+      {
+        "id": 1,
+        "baslik": "Uyanış Duası",
+        "arabicText": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+        "turkishMeaning": "Bizi öldürdükten sonra dirilten Allah'a hamdolsun. Diriliş O'nadır.",
+        "sayi": 1,
+        "kaynak": "Buhari 6312"
+      },
+      {
+        "id": 2,
+        "baslik": "Sabah Ezkarı — Ayetel Kürsi",
+        "arabicText": "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...",
+        "turkishMeaning": "Allah, kendisinden başka hiçbir ilah olmayandır. Diridir, kayyumdur...",
+        "sayi": 1,
+        "kaynak": "Bakara 255"
+      },
+      {
+        "id": 3,
+        "baslik": "Sabah Ezkarı — İhlas, Felak, Nas",
+        "arabicText": "قُلْ هُوَ اللَّهُ أَحَدٌ...",
+        "turkishMeaning": "De ki: O Allah birdir...",
+        "sayi": 3,
+        "kaynak": "Ebu Davud 5082"
+      },
+      {
+        "id": 4,
+        "baslik": "Sabah Tesbih",
+        "arabicText": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+        "turkishMeaning": "Allah'ı hamdiyle tesbih ederim.",
+        "sayi": 100,
+        "kaynak": "Müslim 2692"
+      },
+      {
+        "id": 5,
+        "baslik": "Kadiri Özel — La ilahe illallah",
+        "arabicText": "لَا إِلَهَ إِلَّا اللَّهُ",
+        "turkishMeaning": "Allah'tan başka ilah yoktur.",
+        "sayi": 100,
+        "kaynak": "Kadiri Virdi"
+      },
+      {
+        "id": 6,
+        "baslik": "İstiğfar",
+        "arabicText": "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ",
+        "turkishMeaning": "Yüce Allah'tan bağışlanmamı dilerim.",
+        "sayi": 100,
+        "kaynak": "Tirmizi 3577"
+      },
+      {
+        "id": 7,
+        "baslik": "Salavat-ı Şerife",
+        "arabicText": "اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ وَسَلِّمْ",
+        "turkishMeaning": "Allah'ım! Efendimiz Muhammed'e, âline ve ashabına salât ve selam eyle.",
+        "sayi": 100,
+        "kaynak": "Kadiri Virdi"
+      },
+      {
+        "id": 8,
+        "baslik": "Sabah Duası",
+        "arabicText": "اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ",
+        "turkishMeaning": "Allah'ım! Seninle sabahladık, seninle akşamladık, seninle yaşıyor, seninle ölüyoruz. Dönüş Sana'dır.",
+        "sayi": 1,
+        "kaynak": "Tirmizi 3391"
+      }
+    ]
+  },
+  "aksamVirdi": {
+    "baslik": "Akşam Virdi",
+    "tahminiSure": "15-20 dakika",
+    "adimlar": [
+      {
+        "id": 1,
+        "baslik": "Akşam Ezkarı",
+        "arabicText": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ",
+        "turkishMeaning": "Akşama girdik, mülk de Allah'ındır.",
+        "sayi": 1,
+        "kaynak": "Müslim 2723"
+      },
+      {
+        "id": 2,
+        "baslik": "Akşam Ezkarı — Ayetel Kürsi",
+        "arabicText": "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...",
+        "turkishMeaning": "Allah, kendisinden başka hiçbir ilah olmayandır...",
+        "sayi": 1,
+        "kaynak": "Bakara 255"
+      },
+      {
+        "id": 3,
+        "baslik": "Akşam İhlas, Felak, Nas",
+        "arabicText": "قُلْ هُوَ اللَّهُ أَحَدٌ...",
+        "turkishMeaning": "De ki: O Allah birdir...",
+        "sayi": 3,
+        "kaynak": "Tirmizi 3575"
+      },
+      {
+        "id": 4,
+        "baslik": "Akşam Tesbih",
+        "arabicText": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+        "turkishMeaning": "Allah'ı hamdiyle tesbih ederim.",
+        "sayi": 100,
+        "kaynak": "Müslim 2692"
+      },
+      {
+        "id": 5,
+        "baslik": "Kadiri Özel — La ilahe illallah",
+        "arabicText": "لَا إِلَهَ إِلَّا اللَّهُ",
+        "turkishMeaning": "Allah'tan başka ilah yoktur.",
+        "sayi": 100,
+        "kaynak": "Kadiri Virdi"
+      },
+      {
+        "id": 6,
+        "baslik": "Seyyidu'l-İstiğfar",
+        "arabicText": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي...",
+        "turkishMeaning": "Allah'ım! Sen benim Rabbimsin. Senden başka ilah yoktur...",
+        "sayi": 1,
+        "kaynak": "Buhari 6306"
+      },
+      {
+        "id": 7,
+        "baslik": "Uyku Duası",
+        "arabicText": "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+        "turkishMeaning": "Allah'ım! Senin adınla ölür ve yaşarım.",
+        "sayi": 1,
+        "kaynak": "Buhari 6312"
+      }
+    ]
+  },
+  "hatmiHacegan": {
+    "baslik": "Hatm-i Hâcegân",
+    "aciklama": "Kadiri tarikatında toplu olarak okunan, silsile ehlinin bereketi ile yapılan özel hatim.",
+    "adimlar": [
+      {
+        "id": 1,
+        "baslik": "Fatiha Suresi",
+        "arabicText": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ...",
+        "turkishMeaning": "Rahman ve Rahim Allah'ın adıyla. Hamd, âlemlerin Rabbi Allah'adır...",
+        "sayi": 7,
+        "zikirMatikZikir": "Fatiha"
+      },
+      {
+        "id": 2,
+        "baslik": "İstiğfar",
+        "arabicText": "أَسْتَغْفِرُ اللَّهَ",
+        "turkishMeaning": "Allah'tan bağışlanmamı dilerim.",
+        "sayi": 100,
+        "zikirMatikZikir": "Estağfirullah"
+      },
+      {
+        "id": 3,
+        "baslik": "Salavat",
+        "arabicText": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ",
+        "turkishMeaning": "Allah'ım! Muhammed'e salât eyle.",
+        "sayi": 100,
+        "zikirMatikZikir": "Salavat"
+      },
+      {
+        "id": 4,
+        "baslik": "La ilahe illallah",
+        "arabicText": "لَا إِلَهَ إِلَّا اللَّهُ",
+        "turkishMeaning": "Allah'tan başka ilah yoktur.",
+        "sayi": 100,
+        "zikirMatikZikir": "Kelime-i Tevhid"
+      },
+      {
+        "id": 5,
+        "baslik": "Fatiha & Dua",
+        "arabicText": "الْفَاتِحَة...",
+        "turkishMeaning": "Fatiha suresi ve hatim duası",
+        "sayi": 1,
+        "zikirMatikZikir": null
+      }
+    ]
+  }
+}

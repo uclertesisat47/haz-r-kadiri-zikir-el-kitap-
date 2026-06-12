@@ -1,0 +1,234 @@
+{
+  "kategoriler": [
+    {
+      "id": "kadiri_tasavvuf",
+      "isim": "Kadiri Tarikatı & Tasavvuf",
+      "ikon": "🌿",
+      "renk": "#2E7D52"
+    },
+    {
+      "id": "temel_islam",
+      "isim": "Temel İslam Bilgisi",
+      "ikon": "☪️",
+      "renk": "#0F3D2C"
+    },
+    {
+      "id": "kuran",
+      "isim": "Kuran-ı Kerim",
+      "ikon": "📖",
+      "renk": "#D4AF37"
+    },
+    {
+      "id": "hadis",
+      "isim": "Hadis-i Şerif",
+      "ikon": "📜",
+      "renk": "#6A3D9A"
+    },
+    {
+      "id": "tarih_siyer",
+      "isim": "İslam Tarihi & Siyer",
+      "ikon": "🕐",
+      "renk": "#B8961E"
+    },
+    {
+      "id": "ibadet",
+      "isim": "Namaz & İbadet",
+      "ikon": "🕌",
+      "renk": "#1B4D3E"
+    },
+    {
+      "id": "ahlak",
+      "isim": "Ahlak & Muamelat",
+      "ikon": "💎",
+      "renk": "#5C3A78"
+    },
+    {
+      "id": "esma",
+      "isim": "Esmaül Hüsna",
+      "ikon": "✨",
+      "renk": "#FF8F00"
+    }
+  ],
+  "sorular": [
+    {
+      "id": 1,
+      "kategori": "kadiri_tasavvuf",
+      "soru": "Kadiri tarikatının kurucusu kimdir?",
+      "secenekler": ["Hz. Ali", "Abdülkadir Geylani", "Bahauddin Nakşibend", "Hasan Basri"],
+      "dogruCevap": 1,
+      "aciklama": "Abdülkadir Geylani (1077-1166), Bağdat'ta yaşamış büyük veli ve Kadiri tarikatının kurucusudur.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 2,
+      "kategori": "kadiri_tasavvuf",
+      "soru": "Abdülkadir Geylani hangi şehirde doğmuştur?",
+      "secenekler": ["Bağdat", "Geylân (İran)", "Kahire", "Medine"],
+      "dogruCevap": 1,
+      "aciklama": "Abdülkadir Geylani, İran'ın Geylan bölgesinde doğmuş, sonradan Bağdat'a yerleşmiştir.",
+      "zorluk": "ORTA"
+    },
+    {
+      "id": 3,
+      "kategori": "kadiri_tasavvuf",
+      "soru": "Tasavvufta 'fena fillah' kavramı ne anlama gelir?",
+      "secenekler": ["Allah korkusu", "Allah'ta yok olmak", "Allah'ı zikretmek", "Allah'a dua etmek"],
+      "dogruCevap": 1,
+      "aciklama": "Fena fillah; kulun benliğini Allah'ta yok etmesi, nefsini ve dünyayı terk ederek Allah'a kavuşması anlamına gelir.",
+      "zorluk": "ZOR"
+    },
+    {
+      "id": 4,
+      "kategori": "kadiri_tasavvuf",
+      "soru": "Silsile-i şerifin başlangıcı kimdir?",
+      "secenekler": ["Hz. Ebubekir", "Hz. Ali", "Hz. Ömer", "Hz. Osman"],
+      "dogruCevap": 1,
+      "aciklama": "Kadiri silsilesi Hz. Peygamber'den Hz. Ali yoluyla Abdülkadir Geylani'ye ulaşır.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 5,
+      "kategori": "kadiri_tasavvuf",
+      "soru": "Tasavvufta 'mürşid' ne demektir?",
+      "secenekler": ["Talip olan kişi", "Yol gösteren rehber", "Zikir yapan", "Kitap okuyan"],
+      "dogruCevap": 1,
+      "aciklama": "Mürşid; manevi yolda müridin rehberi olan, onu Allah'a ulaştırmaya çalışan şeyh veya veli kişidir.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 6,
+      "kategori": "temel_islam",
+      "soru": "İslamın şartları kaç tanedir?",
+      "secenekler": ["3", "4", "5", "6"],
+      "dogruCevap": 2,
+      "aciklama": "İslamın şartları 5'tir: Kelime-i Şehadet, Namaz, Zekât, Oruç ve Hac.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 7,
+      "kategori": "temel_islam",
+      "soru": "İmanın şartları kaç tanedir?",
+      "secenekler": ["4", "5", "6", "7"],
+      "dogruCevap": 2,
+      "aciklama": "İmanın şartları 6'dır: Allah'a, meleklere, kitaplara, peygamberlere, ahiret gününe ve kadere inanmak.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 8,
+      "kategori": "temel_islam",
+      "soru": "Kıble hangi yöndedir?",
+      "secenekler": ["Kudüs", "Mekke (Kabe)", "Medine", "Bağdat"],
+      "dogruCevap": 1,
+      "aciklama": "Kıble, Mekke'deki Kabe-i Muazzama'nın yönüdür. Namaz bu yöne dönerek kılınır.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 9,
+      "kategori": "kuran",
+      "soru": "Kuran-ı Kerim kaç sureden oluşur?",
+      "secenekler": ["100", "114", "120", "99"],
+      "dogruCevap": 1,
+      "aciklama": "Kuran-ı Kerim 114 sureden oluşmaktadır. İlk sure Fatiha, son sure ise Nas suresidir.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 10,
+      "kategori": "kuran",
+      "soru": "En uzun sure hangisidir?",
+      "secenekler": ["Fatiha", "Bakara", "Al-i İmran", "Nisa"],
+      "dogruCevap": 1,
+      "aciklama": "Bakara suresi, 286 ayetle Kuran'ın en uzun suresidir.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 11,
+      "kategori": "kuran",
+      "soru": "Kuran'da adı geçen tek kadın peygamber hangisidir?",
+      "secenekler": ["Hz. Meryem", "Hz. Asiye", "Hz. Hatice", "Kuran'da kadın peygamber yoktur"],
+      "dogruCevap": 3,
+      "aciklama": "Kuran'da adı geçen kadın peygamber yoktur. Hz. Meryem peygamber değil, sıddıka (doğrulayan) olarak anılır.",
+      "zorluk": "ZOR"
+    },
+    {
+      "id": 12,
+      "kategori": "hadis",
+      "soru": "En meşhur hadis kitabı olan Sahih-i Buhari'nin yazarı kimdir?",
+      "secenekler": ["Müslim", "Tirmizi", "İmam Buhari", "Ebu Davud"],
+      "dogruCevap": 2,
+      "aciklama": "İmam Buhari (810-870), Sahih-i Buhari'nin derleyicisidir. Hadis ilminin en önemli eseri olarak kabul edilir.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 13,
+      "kategori": "tarih_siyer",
+      "soru": "Hz. Peygamber (s.a.v.) hangi yılda doğmuştur?",
+      "secenekler": ["570 M", "571 M", "572 M", "580 M"],
+      "dogruCevap": 1,
+      "aciklama": "Hz. Muhammed (s.a.v.) miladi 571 yılında, fil yılında Mekke'de doğmuştur.",
+      "zorluk": "ORTA"
+    },
+    {
+      "id": 14,
+      "kategori": "tarih_siyer",
+      "soru": "Hicret hangi yılda gerçekleşmiştir?",
+      "secenekler": ["610 M", "615 M", "622 M", "630 M"],
+      "dogruCevap": 2,
+      "aciklama": "Hz. Peygamber Mekke'den Medine'ye 622 yılında hicret etmiştir. Bu tarih İslam takviminin başlangıcıdır.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 15,
+      "kategori": "ibadet",
+      "soru": "Günlük farz namazların toplam rekat sayısı kaçtır?",
+      "secenekler": ["15", "17", "19", "20"],
+      "dogruCevap": 1,
+      "aciklama": "5 vakit farz namazın toplamı 17 rekattır: Sabah 2, Öğle 4, İkindi 4, Akşam 3, Yatsı 4.",
+      "zorluk": "ORTA"
+    },
+    {
+      "id": 16,
+      "kategori": "ibadet",
+      "soru": "Vitir namazı kaç rekat kılınır?",
+      "secenekler": ["1", "2", "3", "4"],
+      "dogruCevap": 2,
+      "aciklama": "Vitir namazı en az 1, en fazla 11 rekat kılınır. En yaygın şekli 3 rekattır.",
+      "zorluk": "ORTA"
+    },
+    {
+      "id": 17,
+      "kategori": "ahlak",
+      "soru": "İslamda komşu hakkı kaç evle sınırlandırılmıştır?",
+      "secenekler": ["Her iki taraftan 7 ev", "Her taraftan 40 ev", "3 ev", "10 ev"],
+      "dogruCevap": 1,
+      "aciklama": "Hadislerde her taraftan 40 ev, komşu olarak belirtilmiştir.",
+      "zorluk": "ZOR"
+    },
+    {
+      "id": 18,
+      "kategori": "esma",
+      "soru": "Allah'ın 99 ismi (Esmaül Hüsna) kaç tanedir?",
+      "secenekler": ["77", "88", "99", "100"],
+      "dogruCevap": 2,
+      "aciklama": "Allah Teala'nın güzel isimleri 99 tanedir. Bunlara Esmaül Hüsna denir.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 19,
+      "kategori": "esma",
+      "soru": "'Er-Rahman' isminin anlamı nedir?",
+      "secenekler": ["Adil olan", "Çok merhametli", "Hükmeden", "Yaratan"],
+      "dogruCevap": 1,
+      "aciklama": "Er-Rahman; dünyada hem mümin hem kâfire merhamet eden, rahmeti sonsuz olan Allah demektir.",
+      "zorluk": "KOLAY"
+    },
+    {
+      "id": 20,
+      "kategori": "esma",
+      "soru": "'El-Kadir' isminin anlamı nedir?",
+      "secenekler": ["Gören", "Her şeye gücü yeten", "İşiten", "Bilen"],
+      "dogruCevap": 1,
+      "aciklama": "El-Kadir; her şeye gücü yeten, kudret sahibi olan Allah demektir.",
+      "zorluk": "KOLAY"
+    }
+  ]
+}

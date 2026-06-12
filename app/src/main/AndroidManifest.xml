@@ -36,11 +36,13 @@
             </intent-filter>
         </activity>
 
+        <!-- Media3 Playback Service -->
         <service
             android:name=".features.ilahi.PlaybackService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
 
+        <!-- Boot Receiver -->
         <receiver
             android:name=".core.receivers.BootReceiver"
             android:exported="true">
@@ -49,6 +51,55 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+
+        <!-- Glance Widget: Namaz Vakitleri -->
+        <receiver
+            android:name=".features.widget.NamazWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/namaz_widget_info" />
+        </receiver>
+
+        <!-- Glance Widget: Zikir -->
+        <receiver
+            android:name=".features.widget.ZikirWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/zikir_widget_info" />
+        </receiver>
+
+        <!-- Glance Widget: Günün Ayeti -->
+        <receiver
+            android:name=".features.widget.AyetWidgetReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ayet_widget_info" />
+        </receiver>
+
+        <!-- WorkManager Hilt integration -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge"
+            xmlns:tools="http://schemas.android.com/tools">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
 
     </application>
 
