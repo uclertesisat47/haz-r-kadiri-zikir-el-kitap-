@@ -1,0 +1,3 @@
+- [Kadiri Navigation Routes](kadiri-nav-routes.md) — KitapDetayRoute uses kitapId:String; bolumId/sayfaId only in data/domain layer
+- [Kadiri Settings ViewModel](kadiri-settings-vm.md) — AyarlarViewModel uses AyarlarUiState, maps to DataStore's setDarkTheme/setBildirimNamaz/setFontSizeScale
+- [Kadiri Theme Name](kadiri-theme-name.md) — AndroidManifest must use Theme.KadiriElKitabi.Splash; themes.xml defines exactly that name

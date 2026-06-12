@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Temel tema — Material3 DynamicColor kullanılıyor, renk paleti Kotlin'de tanımlanıyor -->
+    <style name="Theme.KadiriElKitabi" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
+    <!-- Başlangıç / Splash teması — OLED siyah arka plan -->
+    <style name="Theme.KadiriElKitabi.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FF000000</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.KadiriElKitabi</item>
+    </style>
+
+</resources>

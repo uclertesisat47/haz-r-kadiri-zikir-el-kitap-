@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kadiri Tarikatı El Kitabı</string>
+    <string name="app_name_short">Kadiri</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_kitap">Kitap</string>
+    <string name="nav_zikir">Zikirmatik</string>
+    <string name="nav_dua">Dua</string>
+    <string name="nav_ayarlar">Ayarlar</string>
+
+    <!-- Home -->
+    <string name="home_bismillah">بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ</string>
+    <string name="home_greeting">Hoş Geldiniz</string>
+    <string name="home_hijri_date_label">Hicrî Tarih</string>
+    <string name="home_next_prayer">Sıradaki Namaz</string>
+    <string name="home_today_zikir">Bugün Zikir</string>
+
+    <!-- Zikir -->
+    <string name="zikir_matik_title">ZikirMatik</string>
+    <string name="zikir_count_label">sayım</string>
+    <string name="zikir_hedef_label">Hedef</string>
+    <string name="zikir_tur_tamamlandi">Tur tamamlandı!</string>
+    <string name="zikir_secimi_title">Zikir Seç</string>
+    <string name="zikir_ozel_ekle">Özel Zikir Ekle</string>
+    <string name="zikir_istatistik_title">İstatistikler</string>
+    <string name="zikir_gecmis_title">Geçmiş</string>
+
+    <!-- Kitap -->
+    <string name="kitap_liste_title">El Kitapları</string>
+    <string name="kitap_detay_title">Kitap Detayı</string>
+    <string name="kitap_bolumler">Bölümler</string>
+    <string name="kitap_yer_imi">Yer İmi</string>
+    <string name="kitap_okundu">Okundu</string>
+
+    <!-- Prayer Times -->
+    <string name="namaz_vakitleri_title">Namaz Vakitleri</string>
+    <string name="imsak">İmsak</string>
+    <string name="sabah">Sabah</string>
+    <string name="ogle">Öğle</string>
+    <string name="ikindi">İkindi</string>
+    <string name="aksam">Akşam</string>
+    <string name="yatsi">Yatsı</string>
+
+    <!-- Kible -->
+    <string name="kible_title">Kıble Yönü</string>
+    <string name="kible_kabe_mesafe">Kâbe\'ye mesafe</string>
+
+    <!-- Esma -->
+    <string name="esma_title">Esmâ-ül Hüsnâ</string>
+    <string name="esma_count">99 İsim</string>
+
+    <!-- Silsile -->
+    <string name="silsile_title">Silsile-i Şerife</string>
+
+    <!-- Takvim -->
+    <string name="takvim_title">Hicrî Takvim</string>
+    <string name="takvim_bugun">Bugün</string>
+
+    <!-- Amel -->
+    <string name="amel_title">Amel Defteri</string>
+    <string name="amel_ekle">Amel Ekle</string>
+    <string name="amel_tamamla">Tamamla</string>
+
+    <!-- Settings -->
+    <string name="ayarlar_title">Ayarlar</string>
+    <string name="ayarlar_karanlik_tema">Koyu Tema</string>
+    <string name="ayarlar_bildirimler">Bildirimler</string>
+    <string name="ayarlar_hakkinda">Hakkında</string>
+    <string name="ayarlar_surum">Sürüm 2.0.0</string>
+
+    <!-- Errors -->
+    <string name="hata_genel">Bir hata oluştu</string>
+    <string name="hata_konum">Konum izni gerekli</string>
+    <string name="yukluyor">Yükleniyor…</string>
+    <string name="veri_yok">Veri bulunamadı</string>
+
+    <!-- Notification channels -->
+    <string name="notif_channel_namaz">Namaz Vakitleri</string>
+    <string name="notif_channel_zikir">Zikir Hatırlatıcısı</string>
+    <string name="notif_channel_ilahi">İlahi Oynatıcı</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_geri">Geri</string>
+    <string name="cd_menu">Menü</string>
+    <string name="cd_ara">Ara</string>
+    <string name="cd_bildirim">Bildirim</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Placeholder — gerçek Noto Naskh Arabic font dosyasını buraya kopyalayın.
+  Google Fonts'tan indirme: https://fonts.google.com/noto/specimen/Noto+Naskh+Arabic
+  İndirilen .ttf dosyasını res/font/noto_naskh_arabic.ttf olarak kaydedin,
+  ardından bu XML dosyasını silin.
+-->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android" />
