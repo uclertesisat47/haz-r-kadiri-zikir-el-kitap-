@@ -1,0 +1,1318 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║   KADİRİ TARİKATI EL KİTABI — NATIVE ANDROID (KOTLIN + COMPOSE)    ║
+║   TAM YENIDEN TASARIM + ZİKİRMATİK + YENİ ÖZELLİKLER + BUG FIX    ║
+║   2026 EN SON KOTLIN / JETPACK COMPOSE / M3 EXPRESSIVE STANDARDI    ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEN KİMSİN — UZMAN ROL TANIMI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sen aynı anda:
+  • Kıdemli Native Android Mimarı (Kotlin + Jetpack Compose uzmanı)
+  • Material Design 3 Expressive UI/UX tasarımcısı
+  • İslami tasavvuf, Kadiri tarikatı estetiği ve kültürü danışmanı
+  • Performans mühendisi (Compose recomposition optimizasyonu)
+  • Erişilebilirlik (Accessibility) ve WCAG 2.2 uzmanısın.
+
+MUTLAK KURALLAR:
+  ❌ Placeholder, Lorem ipsum, mock data, TODO, FIXME YASAK
+  ❌ Mevcut hiçbir veriyi silme veya değiştirme YASAK
+  ❌ Java kodu yazma — sadece Kotlin
+  ❌ XML layout kullanma — sadece Jetpack Compose UI
+  ✅ Veri bütünlüğünü %100 koru
+  ✅ Tüm mevcut el kitabı içeriğini aynen kullan
+  ✅ Çalışan, gerçek, production-ready kod yaz
+  ✅ Her dosya compile edilebilir olmalı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 1: TEKNOLOJİ STACK — NATIVE ANDROID 2026
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DİL & PLATFORM:
+  Dil:           Kotlin 2.1.x (K2 compiler aktif)
+  Min SDK:       API 26 (Android 8.0)
+  Target SDK:    API 36 (Android 16)
+  Compile SDK:   API 36
+  JVM Target:    17
+
+BUILD SİSTEMİ:
+  Build Tool:    Gradle 8.10+ (Kotlin DSL — build.gradle.kts)
+  AGP:           Android Gradle Plugin 8.7.x
+  KSP:           2.1.x (kapt tamamen terk edildi)
+
+COMPOSE VERSİYONLARI (Mayıs 2026 güncel):
+  BOM:                         androidx.compose:compose-bom:2026.05.xx
+  compose.material3:           1.5.0-alpha20  (M3 Expressive tam destek)
+  compose.material3.adaptive:  1.5.0-alpha21
+  compose.ui:                  (BOM'dan)
+  compose.animation:           (BOM'dan)
+  compose.foundation:          (BOM'dan)
+  composeCompilerExtension:    2.1.x (Kotlin 2.1 uyumlu)
+
+MİMARİ PATTERN:
+  Clean Architecture + MVVM + UDF (Unidirectional Data Flow)
+  • Presentation Layer: Compose UI + ViewModel + UiState
+  • Domain Layer:       UseCases + Repository Interfaces + Entities
+  • Data Layer:         Repository Impl + Room DAO + DataStore
+
+BAĞIMLILIKLAR (libs.versions.toml — Version Catalog):
+
+[versions]
+kotlin                = "2.1.21"
+agp                   = "8.7.3"
+ksp                   = "2.1.21-1.0.31"
+compose-bom           = "2026.05.00"
+hilt                  = "2.52"
+hilt-navigation       = "1.2.0"
+navigation-compose    = "2.8.9"
+room                  = "2.7.1"
+datastore             = "1.1.2"
+lifecycle             = "2.9.1"
+coroutines            = "1.9.0"
+coil                  = "3.1.0"
+lottie                = "6.6.2"
+accompanist           = "0.36.0"
+work                  = "2.10.1"
+splash-screen         = "1.0.1"
+hijri                 = "2.0.0"
+adhan                 = "2.2.1"
+media3                = "1.5.1"
+charts                = "0.2.4-alpha"    # Compose Charts (Ehsanmsz)
+dynamic-color         = "1.0.0"
+
+[libraries]
+# Compose
+compose-bom                    = { group="androidx.compose",       name="compose-bom",                 version.ref="compose-bom" }
+compose-ui                     = { group="androidx.compose.ui",    name="ui"                                                     }
+compose-ui-graphics            = { group="androidx.compose.ui",    name="ui-graphics"                                            }
+compose-ui-tooling-preview     = { group="androidx.compose.ui",    name="ui-tooling-preview"                                     }
+compose-ui-tooling             = { group="androidx.compose.ui",    name="ui-tooling"                                             }
+compose-foundation             = { group="androidx.compose.foundation", name="foundation"                                        }
+compose-material3              = { group="androidx.compose.material3", name="material3",               version="1.5.0-alpha20"   }
+compose-material3-adaptive     = { group="androidx.compose.material3", name="material3-adaptive-navigation-suite", version="1.5.0-alpha21" }
+compose-animation              = { group="androidx.compose.animation", name="animation"                                          }
+
+# Architecture
+lifecycle-viewmodel-compose    = { group="androidx.lifecycle",     name="lifecycle-viewmodel-compose",  version.ref="lifecycle" }
+lifecycle-runtime-compose      = { group="androidx.lifecycle",     name="lifecycle-runtime-compose",    version.ref="lifecycle" }
+navigation-compose             = { group="androidx.navigation",    name="navigation-compose",           version.ref="navigation-compose" }
+
+# Hilt DI
+hilt-android                   = { group="com.google.dagger",      name="hilt-android",                version.ref="hilt"      }
+hilt-compiler                  = { group="com.google.dagger",      name="hilt-android-compiler",       version.ref="hilt"      }
+hilt-navigation-compose        = { group="androidx.hilt",          name="hilt-navigation-compose",     version.ref="hilt-navigation" }
+
+# Room
+room-runtime                   = { group="androidx.room",          name="room-runtime",                version.ref="room"      }
+room-ktx                       = { group="androidx.room",          name="room-ktx",                    version.ref="room"      }
+room-compiler                  = { group="androidx.room",          name="room-compiler",               version.ref="room"      }
+
+# DataStore
+datastore-preferences          = { group="androidx.datastore",     name="datastore-preferences",       version.ref="datastore" }
+
+# Coroutines
+coroutines-android             = { group="org.jetbrains.kotlinx",  name="kotlinx-coroutines-android",  version.ref="coroutines"}
+
+# Media (Ses/İlahi)
+media3-exoplayer               = { group="androidx.media3",        name="exoplayer",                   version.ref="media3"    }
+media3-session                 = { group="androidx.media3",        name="session",                     version.ref="media3"    }
+media3-ui                      = { group="androidx.media3",        name="ui",                          version.ref="media3"    }
+
+# Image
+coil-compose                   = { group="io.coil-kt.coil3",       name="coil-compose",                version.ref="coil"      }
+coil-svg                       = { group="io.coil-kt.coil3",       name="coil-svg",                    version.ref="coil"      }
+
+# Animation
+lottie-compose                 = { group="com.airbnb.android",     name="lottie-compose",              version.ref="lottie"    }
+
+# WorkManager
+work-runtime                   = { group="androidx.work",          name="work-runtime-ktx",            version.ref="work"      }
+hilt-work                      = { group="androidx.hilt",          name="hilt-work",                   version="1.2.0"         }
+
+# Splash
+splash-screen                  = { group="androidx.core",          name="core-splashscreen",           version.ref="splash-screen" }
+
+# Hicri Takvim
+hijri-calendar                 = { group="com.github.msarhan",     name="ummalqura-calendar",          version.ref="hijri"     }
+
+# Namaz Vakti (Offline)
+adhan-kotlin                   = { group="com.batoulapps.adhan",   name="adhan-kotlin",                version.ref="adhan"     }
+
+# Grafikler
+compose-charts                 = { group="ir.ehsannarmani",        name="compose-charts",              version.ref="charts"    }
+
+# Sistem UI
+accompanist-systemuicontroller = { group="com.google.accompanist", name="accompanist-systemuicontroller", version.ref="accompanist" }
+
+# Bildirimler
+core-ktx                       = { group="androidx.core",          name="core-ktx",                   version="1.16.0"        }
+
+[plugins]
+android-application            = { id="com.android.application",           version.ref="agp"    }
+kotlin-android                 = { id="org.jetbrains.kotlin.android",       version.ref="kotlin" }
+kotlin-compose                 = { id="org.jetbrains.kotlin.plugin.compose",version.ref="kotlin" }
+hilt                           = { id="com.google.dagger.hilt.android",     version.ref="hilt"   }
+ksp                            = { id="com.google.devtools.ksp",            version.ref="ksp"    }
+room                           = { id="androidx.room",                      version.ref="room"   }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 2: PROJE KLASÖR MİMARİSİ (Clean Architecture — Multi-Module)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+app/
+└── src/main/
+    ├── AndroidManifest.xml
+    └── java/com/kadiri/elkitabi/
+        │
+        ├── KadiriApplication.kt          (@HiltAndroidApp)
+        ├── MainActivity.kt               (Single Activity, edge-to-edge)
+        │
+        ├── core/
+        │   ├── designsystem/
+        │   │   ├── theme/
+        │   │   │   ├── KadiriTheme.kt          (MaterialTheme wrapper)
+        │   │   │   ├── Color.kt                (Light + Dark + OLED paleti)
+        │   │   │   ├── Typography.kt           (Amiri + Nunito type scale)
+        │   │   │   ├── Shape.kt                (M3 Expressive shape sistemi)
+        │   │   │   └── Motion.kt               (spring animasyon tokenları)
+        │   │   ├── components/
+        │   │   │   ├── IslamicCard.kt           (arabesk kartı)
+        │   │   │   ├── ArabesqueHeader.kt       (SVG motifli üst bar)
+        │   │   │   ├── BismillahWidget.kt
+        │   │   │   ├── IslamicDivider.kt        (tezhip motifli ayırıcı)
+        │   │   │   ├── GradientScaffold.kt
+        │   │   │   ├── PulseAnimation.kt        (zikir pulse efekti)
+        │   │   │   ├── RadialProgressArc.kt     (zikir dairesel progress)
+        │   │   │   ├── AnimatedCounter.kt       (sayı animasyonu)
+        │   │   │   ├── GeometricPatternBg.kt    (Canvas ile Islamic desen)
+        │   │   │   └── GlassCard.kt             (glassmorphism kartı)
+        │   │   └── icons/
+        │   │       └── KadiriIcons.kt           (özel SVG ikon seti)
+        │   │
+        │   ├── utils/
+        │   │   ├── ArabicTextUtils.kt
+        │   │   ├── HijriUtils.kt
+        │   │   ├── PrayerTimeUtils.kt
+        │   │   ├── HapticUtils.kt
+        │   │   ├── AudioUtils.kt
+        │   │   └── DateUtils.kt
+        │   │
+        │   ├── data/
+        │   │   ├── local/
+        │   │   │   ├── KadiriDatabase.kt        (@Database — Room)
+        │   │   │   └── migrations/
+        │   │   └── preferences/
+        │   │       └── UserPreferencesDataStore.kt
+        │   │
+        │   └── di/
+        │       ├── DatabaseModule.kt
+        │       ├── RepositoryModule.kt
+        │       └── UseCaseModule.kt
+        │
+        └── features/
+            ├── home/
+            │   ├── data/
+            │   ├── domain/
+            │   └── presentation/
+            │       ├── HomeScreen.kt
+            │       ├── HomeViewModel.kt
+            │       └── components/
+            │           ├── PrayerTimeWidget.kt
+            │           ├── HijriDateWidget.kt
+            │           ├── DailyZikirCard.kt
+            │           └── FeatureGrid.kt
+            │
+            ├── kitap/                    (El Kitabı)
+            │   ├── data/
+            │   │   ├── local/
+            │   │   │   ├── KitapDao.kt
+            │   │   │   └── entities/
+            │   │   ├── repository/
+            │   │   └── datasource/
+            │   │       └── KitapJsonDataSource.kt
+            │   ├── domain/
+            │   │   ├── model/
+            │   │   │   ├── KitapBolum.kt
+            │   │   │   └── KitapSayfa.kt
+            │   │   ├── repository/
+            │   │   └── usecase/
+            │   └── presentation/
+            │       ├── KitapListScreen.kt
+            │       ├── KitapDetayScreen.kt
+            │       ├── KitapViewModel.kt
+            │       └── components/
+            │           ├── BolumKarti.kt
+            │           ├── OkumaModuBar.kt
+            │           ├── ArabicTextBlock.kt
+            │           ├── FontSizeSlider.kt
+            │           └── YerImiButton.kt
+            │
+            ├── zikir/                    (ZİKİRMATİK — ULTRA GELİŞMİŞ)
+            │   ├── data/
+            │   │   ├── local/
+            │   │   │   ├── ZikirDao.kt
+            │   │   │   ├── ZikirSessionDao.kt
+            │   │   │   └── entities/
+            │   │   │       ├── ZikirEntity.kt
+            │   │   │       ├── ZikirSessionEntity.kt
+            │   │   │       └── ZikirHedefEntity.kt
+            │   │   └── repository/
+            │   ├── domain/
+            │   │   ├── model/
+            │   │   │   ├── Zikir.kt
+            │   │   │   ├── ZikirSession.kt
+            │   │   │   ├── ZikirIstatistik.kt
+            │   │   │   └── ZikirHedef.kt
+            │   │   ├── repository/
+            │   │   │   └── ZikirRepository.kt
+            │   │   └── usecase/
+            │   │       ├── GetZikirListeUseCase.kt
+            │   │       ├── SaveZikirSessionUseCase.kt
+            │   │       ├── GetZikirIstatistikUseCase.kt
+            │   │       ├── GetGunlukHedefUseCase.kt
+            │   │       └── OzelZikirEkleUseCase.kt
+            │   └── presentation/
+            │       ├── ZikirMatikScreen.kt        (ANA SAYFA — tam ekran)
+            │       ├── ZikirViewModel.kt
+            │       ├── ZikirSecimiSheet.kt        (zikir seçim BottomSheet)
+            │       ├── ZikirIstatistikScreen.kt   (grafikler)
+            │       ├── ZikirGecmisScreen.kt       (geçmiş kayıtlar)
+            │       ├── OzelZikirScreen.kt         (özel zikir ekleme)
+            │       ├── ZikirAyarlarSheet.kt       (ses/titreşim ayarları)
+            │       └── components/
+            │           ├── ZikirDaireUI.kt        (merkez daire sistemi)
+            │           ├── RadialZikirProgress.kt (Canvas arc progress)
+            │           ├── ZikirSayacText.kt      (animasyonlu sayac)
+            │           ├── ArabesqueRing.kt       (dönen arabesk SVG)
+            │           ├── ZikirTamamModal.kt     (Lottie kutlama)
+            │           ├── ZikirKarti.kt
+            │           ├── IstatistikGrafikler.kt (Compose Charts)
+            │           └── StreakWidget.kt
+            │
+            ├── dua/
+            ├── namaz/
+            ├── takvim/
+            ├── kible/
+            ├── esma/
+            ├── silsile/
+            ├── ilahi/
+            ├── amel/
+            └── settings/
+
+res/
+├── raw/              (Lottie JSON, ses dosyaları)
+├── font/             (Amiri-Regular.ttf, Amiri-Bold.ttf,
+│                      AmiriQuran.ttf, NotoKufiArabic.ttf,
+│                      Nunito-*.ttf)
+├── drawable/         (SVG Islamic motifler, arabesk, app icon)
+├── mipmap-*/         (Adaptive launcher icon — tüm DPI'lar)
+└── values/
+    ├── strings.xml
+    └── arrays.xml    (zikir listeleri, dua kategorileri)
+
+assets/
+├── data/
+│   ├── kitap.json        ← MEVCUT VERİYİ KULLAN
+│   ├── dualar.json       ← MEVCUT VERİYİ KULLAN
+│   ├── zikirler.json
+│   ├── esma.json
+│   └── silsile.json
+└── audio/
+    ├── ilahiler/
+    └── zikir_sesleri/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 3: TASARIM SİSTEMİ — M3 EXPRESSIVE + İSLAMİ ESTETİK 2026
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── 3.1 RENK PALETİ ──────────────────────────────────────────────────
+
+/* Color.kt — KADİRİ TARIKATI RENK SİSTEMİ */
+
+// ═══ KARANLIK TEMA (OLED OPTİMİZE — VARSAYILAN) ═══
+val PrimaryDark           = Color(0xFF5FD99A)   // Parlak zümrüt
+val OnPrimaryDark         = Color(0xFF003822)
+val PrimaryContainerDark  = Color(0xFF0F3D2C)   // Derin zümrüt
+val SecondaryDark         = Color(0xFFF0C040)   // Altın varak
+val OnSecondaryDark       = Color(0xFF3A2800)
+val SecondaryContainerDark= Color(0xFF5C4200)
+val TertiaryDark          = Color(0xFFD8A8FF)   // Velayet moru
+val OnTertiaryDark        = Color(0xFF3D0060)
+val BackgroundDark        = Color(0xFF080A09)   // OLED tam siyah
+val SurfaceDark           = Color(0xFF0D100E)
+val SurfaceVariantDark    = Color(0xFF1E2520)
+val OutlineDark           = Color(0xFF8FAF97)
+
+// ═══ IŞIK TEMA ═══
+val PrimaryLight          = Color(0xFF1B4D3E)   // Kadiri yeşili
+val OnPrimaryLight        = Color(0xFFFFFFFF)
+val PrimaryContainerLight = Color(0xFFC8F0DC)
+val SecondaryLight        = Color(0xFF8B6914)   // Altın
+val OnSecondaryLight      = Color(0xFFFFFFFF)
+val SecondaryContainerLight=Color(0xFFF5E6B3)
+val TertiaryLight         = Color(0xFF5C3A78)   // Mor
+val BackgroundLight       = Color(0xFFFDFAF4)   // Parşömen beyazı
+val SurfaceLight          = Color(0xFFF7F3EC)
+val SurfaceVariantLight   = Color(0xFFEDE8DF)
+
+// ═══ ÖZEL RENK TOKENLERİ ═══
+val GoldAccent            = Color(0xFFD4AF37)   // Saf altın
+val GoldAccentLight       = Color(0xFFFFD700)
+val ArabesqueGold         = Color(0xFFB8961E)
+val IslamicGreen          = Color(0xFF2E7D52)
+val MysticPurple          = Color(0xFF6A3D9A)
+val OLEDBlack             = Color(0xFF000000)
+val WarmAmber             = Color(0xFFFF8F00)   // Gece okuma modu
+
+// ═══ GRADYANLAR ═══
+val PrimaryGradient       = listOf(Color(0xFF0F3D2C), Color(0xFF1B4D3E))
+val GoldGradient          = listOf(Color(0xFFB8961E), Color(0xFFFFD700))
+val SpiritualGradient     = listOf(Color(0xFF1B4D3E), Color(0xFF5C3A78))
+val ZikirBgGradient       = listOf(Color(0xFF080A09), Color(0xFF0D1F18))
+
+── 3.2 TİPOGRAFİ SİSTEMİ ────────────────────────────────────────────
+
+/* Typography.kt */
+// NOT: fontların res/font/ klasörüne embed edilmesi ZORUNLU
+
+val AmiriRegular     = FontFamily(Font(R.font.amiri_regular))
+val AmiriBold        = FontFamily(Font(R.font.amiri_bold))
+val AmiriQuran       = FontFamily(Font(R.font.amiri_quran))
+val NotoKufi         = FontFamily(Font(R.font.noto_kufi_arabic))
+val NunitoFamily     = FontFamily(
+    Font(R.font.nunito_regular, FontWeight.Normal),
+    Font(R.font.nunito_semibold, FontWeight.SemiBold),
+    Font(R.font.nunito_bold, FontWeight.Bold),
+    Font(R.font.nunito_extrabold, FontWeight.ExtraBold)
+)
+
+val KadiriTypography = Typography(
+    displayLarge  = TextStyle(fontFamily=AmiriBold,      fontSize=57.sp, lineHeight=64.sp),
+    displayMedium = TextStyle(fontFamily=AmiriBold,      fontSize=45.sp, lineHeight=52.sp),
+    displaySmall  = TextStyle(fontFamily=AmiriBold,      fontSize=36.sp, lineHeight=44.sp),
+    headlineLarge = TextStyle(fontFamily=AmiriBold,      fontSize=32.sp, lineHeight=40.sp, fontWeight=FontWeight.Bold),
+    headlineMedium= TextStyle(fontFamily=AmiriBold,      fontSize=28.sp, lineHeight=36.sp),
+    headlineSmall = TextStyle(fontFamily=AmiriBold,      fontSize=24.sp, lineHeight=32.sp),
+    titleLarge    = TextStyle(fontFamily=NunitoFamily,   fontSize=22.sp, lineHeight=28.sp, fontWeight=FontWeight.Bold),
+    titleMedium   = TextStyle(fontFamily=NunitoFamily,   fontSize=16.sp, lineHeight=24.sp, fontWeight=FontWeight.SemiBold),
+    titleSmall    = TextStyle(fontFamily=NunitoFamily,   fontSize=14.sp, lineHeight=20.sp, fontWeight=FontWeight.SemiBold),
+    bodyLarge     = TextStyle(fontFamily=NunitoFamily,   fontSize=16.sp, lineHeight=24.sp),
+    bodyMedium    = TextStyle(fontFamily=NunitoFamily,   fontSize=14.sp, lineHeight=20.sp),
+    bodySmall     = TextStyle(fontFamily=NunitoFamily,   fontSize=12.sp, lineHeight=16.sp),
+    labelLarge    = TextStyle(fontFamily=NunitoFamily,   fontSize=14.sp, lineHeight=20.sp, fontWeight=FontWeight.SemiBold),
+    labelMedium   = TextStyle(fontFamily=NunitoFamily,   fontSize=12.sp, lineHeight=16.sp, fontWeight=FontWeight.Medium),
+    labelSmall    = TextStyle(fontFamily=NunitoFamily,   fontSize=11.sp, lineHeight=16.sp, fontWeight=FontWeight.Medium)
+)
+
+// ÖZEL: Arapça büyük metin stili (el kitabı, dua, ayetler)
+val ArabicTextLarge  = TextStyle(fontFamily=AmiriQuran,  fontSize=22.sp, lineHeight=44.sp, textAlign=TextAlign.End, letterSpacing=0.5.sp)
+val ArabicTextMedium = TextStyle(fontFamily=AmiriRegular, fontSize=18.sp, lineHeight=36.sp, textAlign=TextAlign.End)
+val ZikirCounterStyle= TextStyle(fontFamily=AmiriBold,   fontSize=72.sp, lineHeight=80.sp, textAlign=TextAlign.Center)
+
+── 3.3 ŞEKİL SİSTEMİ (M3 Expressive) ──────────────────────────────
+
+/* Shape.kt */
+val KadiriShapes = Shapes(
+    extraSmall = RoundedCornerShape(4.dp),
+    small      = RoundedCornerShape(8.dp),
+    medium     = RoundedCornerShape(16.dp),
+    large      = RoundedCornerShape(24.dp),
+    extraLarge = RoundedCornerShape(32.dp)
+)
+
+// ÖZEL ŞEKİLLER
+val ArchShape         = GenericShape { size, _ -> /* Pointed arch cami kemeri */ }
+val OctagonShape      = GenericShape { size, _ -> /* 8 köşeli İslami yıldız */ }
+val StadiumShape      = RoundedCornerShape(percent = 50)
+val IslamicCardShape  = RoundedCornerShape(topStart=24.dp, topEnd=24.dp, bottomStart=16.dp, bottomEnd=16.dp)
+
+── 3.4 ANİMASYON TOKENLAR (Spring Physics) ─────────────────────────
+
+/* Motion.kt */
+// M3 Expressive spring tabanlı motion sistemi
+val SpringDefault     = spring<Float>(dampingRatio=Spring.DampingRatioMediumBouncy, stiffness=Spring.StiffnessMedium)
+val SpringSnappy      = spring<Float>(dampingRatio=Spring.DampingRatioLowBouncy,    stiffness=Spring.StiffnessMediumLow)
+val SpringBouncy      = spring<Float>(dampingRatio=Spring.DampingRatioHighBouncy,   stiffness=Spring.StiffnessLow)
+val SpringZikir       = spring<Float>(dampingRatio=0.6f,                            stiffness=400f) // zikir pulse
+val EaseExpressive    = CubicBezierEasing(0.34f, 1.56f, 0.64f, 1.0f)
+
+// Sayfa geçiş süresi tokenları (ms)
+const val DURATION_SHORT   = 200
+const val DURATION_MEDIUM  = 350
+const val DURATION_LONG    = 500
+const val DURATION_EXTRA   = 700
+
+── 3.5 SPACING SİSTEMİ ─────────────────────────────────────────────
+
+/* Sizes.kt */
+object Spacing {
+    val xs    = 4.dp
+    val sm    = 8.dp
+    val md    = 16.dp
+    val lg    = 24.dp
+    val xl    = 32.dp
+    val xxl   = 48.dp
+    val xxxl  = 64.dp
+}
+
+── 3.6 İSLAMİ MOTİF BİLEŞENLERİ ────────────────────────────────────
+
+ZORUNLU GÖRSELLER (res/drawable/):
+  • arabesk_border_top.xml       — Header üst arabesk çerçeve
+  • arabesk_border_bottom.xml    — Alt arabesk çerçeve
+  • geometric_star_8.xml         — 8 köşeli İslami yıldız (Canvas/SVG)
+  • geometric_star_10.xml        — 10 köşeli yıldız (arka plan desen)
+  • bismillah_white.xml          — Beyaz bismillah hat
+  • hilal_star.xml               — Hilal+yıldız ikon
+  • divider_tezhip.xml           — Tezhip motifli ayırıcı çizgi
+  • mukarnas_corner.xml          — Kart köşe mukarnas detayı
+
+GeometricPatternBg.kt (Canvas çizimi):
+  @Composable
+  fun GeometricIslamicBackground(
+      modifier: Modifier = Modifier,
+      patternColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
+      patternType: IslamicPattern = IslamicPattern.STAR_8
+  ) {
+      Canvas(modifier = modifier) {
+          // 8 veya 10 köşeli İslami geometrik yıldız
+          // Canvas drawPath() ile tüm ekranı kaplayan
+          // çok düşük opacity (0.04f) subtle desen
+      }
+  }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 4: ANA UYGULAMA YAPISI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── 4.1 MAİNACTİVITY VE NAVIGATION ──────────────────────────────────
+
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()  // Android 15 tam edge-to-edge
+        setContent {
+            KadiriTheme {
+                KadiriApp()
+            }
+        }
+    }
+}
+
+@Composable
+fun KadiriApp() {
+    val navController = rememberNavController()
+    val currentBackStack by navController.currentBackStackEntryAsState()
+    val currentDestination = currentBackStack?.destination
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.background,
+        bottomBar = {
+            if (currentDestination?.shouldShowBottomBar == true) {
+                KadiriBottomNavigation(navController)
+            }
+        }
+    ) { paddingValues ->
+        KadiriNavGraph(
+            navController = navController,
+            modifier = Modifier.padding(paddingValues)
+        )
+    }
+}
+
+Navigation destinations (type-safe, Kotlin Serialization ile):
+  @Serializable object HomeRoute
+  @Serializable object KitapListeRoute
+  @Serializable data class KitapDetayRoute(val bolumId: Int, val sayfaId: Int)
+  @Serializable object ZikirMatikRoute
+  @Serializable object ZikirIstatistikRoute
+  @Serializable object ZikirGecmisRoute
+  @Serializable object DualarRoute
+  @Serializable object NamazVakitleriRoute
+  @Serializable object KibleRoute
+  @Serializable object EsmaUlHusnaRoute
+  @Serializable object SilsileRoute
+  @Serializable object HicriTakvimRoute
+  @Serializable object IlahilerRoute
+  @Serializable object AmelDefteriRoute
+  @Serializable object AyarlarRoute
+
+Bottom Navigation (5 sekme):
+  Ana Sayfa  | El Kitabı  | Zikir  | Dualar  | Daha Fazla
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 5: ZİKİRMATİK — ULTRA GELİŞMİŞ TAM SİSTEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+!! BU BÖLÜM EN ÖNCELİKLİ VE EN DETAYLIDİR — EKSİKSİZ UYGULA !!
+
+── 5.1 ZİKİR VERİ MODELİ ────────────────────────────────────────────
+
+// Domain modelleri (data class — Kotlin, immutable)
+
+data class Zikir(
+    val id: Int,
+    val arabicName: String,          // Arapça isim (font için)
+    val turkishName: String,         // Türkçe adı
+    val arabicText: String,          // Tam Arapça metin
+    val turkishMeaning: String,      // Türkçe anlamı
+    val hedefSayilar: List<Int>,     // [33, 99, 500, 1000]
+    val varsayilanHedef: Int,        // Varsayılan hedef
+    val fazileti: String,            // Fazilet açıklaması
+    val kategori: ZikirKategori,     // KADİRİ, GENEL, ESMA, ÖZEL
+    val sesResId: Int?               // R.raw.xxx ses kaynağı
+)
+
+data class ZikirSession(
+    val id: Long = 0,
+    val zikirId: Int,
+    val zikirAdi: String,
+    val count: Int,
+    val hedef: Int,
+    val tarih: Long,                 // epoch millis
+    val sure: Long,                  // oturum süresi (saniye)
+    val tamamlandi: Boolean,
+    val notlar: String = ""
+)
+
+data class ZikirIstatistik(
+    val toplamSayim: Long,
+    val bugunSayim: Int,
+    val haftaSayim: Int,
+    val aySayim: Int,
+    val enCokZikir: String,
+    val streak: Int,                 // ardışık gün sayısı
+    val toplamSure: Long,
+    val haftalikData: List<GunlukZikir>,
+    val aylikData: List<GunlukZikir>
+)
+
+data class GunlukZikir(
+    val gun: String,
+    val sayi: Int
+)
+
+data class OzelZikir(
+    val id: Long = 0,
+    val isim: String,
+    val arabicText: String,
+    val hedef: Int,
+    val renk: String                 // hex rengi
+)
+
+enum class ZikirKategori {
+    KADİRİ_OZEL,
+    GENEL,
+    ESMA_UL_HUSNA,
+    OZEL
+}
+
+enum class ZikirSesi {
+    SESSSİZ,
+    TİTREŞİM,
+    TEBİH_SESİ,
+    NEY_SESİ,
+    SU_SESİ
+}
+
+── 5.2 ZİKİR HAVUZUv (Kadiri Tarikatına Özgü Tam Liste) ─────────────
+
+// zikirler.json içinde GERÇEK VERİ olarak bulunacak:
+
+ZORUNLU ZİKİR LİSTESİ:
+  1.  Sübhânallah            — AR: سُبْحَانَ اللّٰهِ         — Hedef: 33/99/100/500/1000
+  2.  Elhamdülillah          — AR: اَلْحَمْدُ لِلّٰهِ        — Hedef: 33/99/100/500
+  3.  Allâhu Ekber           — AR: اَللّٰهُ أَكْبَرُ          — Hedef: 33/99/100/500/1000
+  4.  Lâ ilâhe illallah      — AR: لَا إِلٰهَ إِلَّا اللّٰهُ   — Hedef: 100/500/1000
+  5.  Sübhânallahi ve bihamdihî— (uzun)                    — Hedef: 100
+  6.  Sübhânallâhil azîm     — AR: سُبْحَانَ اللّٰهِ الْعَظِيمِ — Hedef: 100
+  7.  Estağfirullah           — AR: أَسْتَغْفِرُ اللّٰهَ       — Hedef: 70/100/1000
+  8.  Estağfirullâhel azîm   — (tam istiğfar)              — Hedef: 100
+  9.  Salevât-ı Şerîfe       — AR: اَللّٰهُمَّ صَلِّ عَلٰى سَيِّدِنَا مُحَمَّدٍ — Hedef: 10/100/1000
+  10. Hasbünallâhü ve ni'mel vekîl — AR: حَسْبُنَا اللّٰهُ    — Hedef: 450
+  11. Yâ Hayy Yâ Kayyûm      — AR: يَا حَيُّ يَا قَيُّومُ      — Hedef: 33/100
+  12. Yâ Rahmân Yâ Rahîm     — AR: يَا رَحْمَنُ يَا رَحِيمُ    — Hedef: 100
+  13. Lâ havle ve lâ kuvvete — AR: لَا حَوْلَ وَلَا قُوَّةَ     — Hedef: 100
+  14. Bismillâhirrahmânirrahîm— AR: بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ — Hedef: 786
+  15. İhlâs Sûresi            — AR: قُلْ هُوَ اللّٰهُ أَحَدٌ    — Hedef: 3/7/41/1001
+  16. Âyete'l-Kürsî           — AR: اَللّٰهُ لَا إِلٰهَ إِلَّا هُوَ — Hedef: 7/41
+  ── KADİRİ ÖZEL ──
+  17. Hatm-i Hâcegân zikri   — Kadiri usulüne göre sıralı zikir
+  18. Kadiri kelime-i tevhidi — Özel form
+  19. Kulhüvallah (ihlas x41) — Kadiri vird
+  20. Fatiha + İhlas + Felak + Nas — Her birinden belirli adette
+
+── 5.3 ZİKİRMATİK VIEWMODEL ──────────────────────────────────────────
+
+@HiltViewModel
+class ZikirViewModel @Inject constructor(
+    private val getZikirListeUseCase: GetZikirListeUseCase,
+    private val saveZikirSessionUseCase: SaveZikirSessionUseCase,
+    private val getZikirIstatistikUseCase: GetZikirIstatistikUseCase,
+    private val preferences: UserPreferencesDataStore,
+    private val hapticManager: HapticManager,
+    private val audioManager: ZikirAudioManager
+) : ViewModel() {
+
+    // ── STATE ──
+    data class ZikirUiState(
+        val seciliZikir: Zikir? = null,
+        val mevcutSayi: Int = 0,
+        val hedef: Int = 33,
+        val turSayisi: Int = 0,        // kaç kez hedef tamamlandı
+        val toplamSayi: Int = 0,       // bu oturumda toplam
+        val tamamlandi: Boolean = false,
+        val oturumBaslangic: Long = 0L,
+        val isSessionActive: Boolean = false,
+        val seciliSes: ZikirSesi = ZikirSesi.TİTREŞİM,
+        val vibrasyonAktif: Boolean = true,
+        val ekranAcikKalsin: Boolean = true,
+        val zikirListesi: List<Zikir> = emptyList(),
+        val isLoading: Boolean = false,
+        val hata: String? = null
+    )
+
+    private val _uiState = MutableStateFlow(ZikirUiState())
+    val uiState: StateFlow<ZikirUiState> = _uiState.asStateFlow()
+
+    // ── ZİKİR SAYMA ──
+    fun zikirSay() {
+        val state = _uiState.value
+        val yeniSayi = state.mevcutSayi + 1
+        val yeniToplam = state.toplamSayi + 1
+
+        when {
+            yeniSayi == state.hedef -> {
+                // Tur tamamlandı — güçlü haptic + kutlama
+                hapticManager.heavyImpact()
+                audioManager.playTamamSesi()
+                _uiState.update { it.copy(
+                    mevcutSayi = 0,
+                    turSayisi = it.turSayisi + 1,
+                    toplamSayi = yeniToplam,
+                    tamamlandi = true
+                )}
+                viewModelScope.launch { delay(2500); resetTamamlandi() }
+            }
+            yeniSayi % 33 == 0 || yeniSayi % 99 == 0 -> {
+                // Milestone haptic (33, 99, 198...)
+                hapticManager.mediumImpact()
+                audioManager.playMilestoneSesi()
+                _uiState.update { it.copy(mevcutSayi = yeniSayi, toplamSayi = yeniToplam) }
+            }
+            else -> {
+                // Normal sayım haptic
+                hapticManager.lightImpact()
+                audioManager.playSayimSesi()
+                _uiState.update { it.copy(mevcutSayi = yeniSayi, toplamSayi = yeniToplam) }
+            }
+        }
+    }
+
+    fun zikirSifirla() { /* mevcut sayıyı sıfırla */ }
+    fun zikirSec(zikir: Zikir) { /* zikir seç */ }
+    fun hedefDegistir(hedef: Int) { /* hedef güncelle */ }
+    fun oturumuKaydet() { /* Room'a kaydet */ }
+    fun oturumBitir() { /* WorkManager'a bildir, kaydet */ }
+    fun sesAyarla(ses: ZikirSesi) { /* ses tercihi */ }
+}
+
+── 5.4 ZİKİRMATİK ANA EKRANI (ZikirMatikScreen.kt) ─────────────────
+
+@Composable
+fun ZikirMatikScreen(
+    viewModel: ZikirViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    // Wakelock — zikir sırasında ekran açık
+    val context = LocalContext.current
+    val wakeLock = remember { /* PowerManager WakeLock */ }
+    DisposableEffect(uiState.ekranAcikKalsin) {
+        if (uiState.ekranAcikKalsin) wakeLock.acquire(10*60*1000L)
+        onDispose { if (wakeLock.isHeld) wakeLock.release() }
+    }
+
+    // Volume tuşu ile sayma (KeyEvent)
+    // Predictive Back Gesture (Android 14+)
+
+    EKRAN YAPISI (dikey, tam ekran):
+    ┌────────────────────────────────────────┐
+    │  TopAppBar: "Zikirmatik"               │
+    │  Sağda: [Geçmiş] [İstatistik] [Ayarlar]│
+    ├────────────────────────────────────────┤
+    │                                        │
+    │  Zikir Adı (Türkçe)  — titleLarge     │
+    │  Arapça isim          — Amiri Bold     │
+    │                                        │
+    │  ┌──────────────────────────────────┐  │
+    │  │   RADYAL DAİRE SİSTEMİ           │  │
+    │  │   ┌──────────────────────────┐   │  │
+    │  │   │  Dış:  Arabesk SVG ring  │   │  │
+    │  │   │  Arası: Arc Progress Bar │   │  │
+    │  │   │         (altın rengi)    │   │  │
+    │  │   │  İç:   Yeşil gradient   │   │  │
+    │  │   │        daire            │   │  │
+    │  │   │                         │   │  │
+    │  │   │    72sp bold sayı        │   │  │
+    │  │   │    (spring animasyonlu)  │   │  │
+    │  │   │                         │   │  │
+    │  │   │  Alt: "X / Hedef"       │   │  │
+    │  │   └──────────────────────────┘   │  │
+    │  └──────────────────────────────────┘  │
+    │                                        │
+    │  [Tur: X] [Toplam: XXX]                │
+    │  [Hedef: DropdownMenu — 33/99/100/500] │
+    │                                        │
+    │  ████████████████ TAP ALANI ████████   │
+    │  (Ekranın alt yarısı tamamen tap area) │
+    │  "Dokunun veya volume tuşuna basın"    │
+    │                                        │
+    │  [Zikir Seç]  [Sıfırla]  [Kaydet]     │
+    └────────────────────────────────────────┘
+}
+
+── 5.5 ZİKİR DAİRE UI BİLEŞENİ (RadialZikirProgress.kt) ─────────────
+
+@Composable
+fun ZikirDaireUI(
+    mevcutSayi: Int,
+    hedef: Int,
+    tamamlandi: Boolean,
+    modifier: Modifier = Modifier
+) {
+    val progress = (mevcutSayi.toFloat() / hedef).coerceIn(0f, 1f)
+    val animatedProgress by animateFloatAsState(
+        targetValue = progress,
+        animationSpec = spring(dampingRatio = 0.7f, stiffness = 300f)
+    )
+
+    // Pulse scale animasyonu — her sayımda tetiklenir
+    val scale by animateFloatAsState(
+        targetValue = if (tamamlandi) 1.15f else 1f,
+        animationSpec = SpringZikir
+    )
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .size(280.dp)
+            .scale(scale)
+    ) {
+        // KATMAN 1: Canvas — dış arabesk dekoratif ring (subtle dönen animasyon)
+        ArabesqueRing(modifier = Modifier.size(280.dp))
+
+        // KATMAN 2: Canvas — radyal progress arc (altın sarısı)
+        Canvas(modifier = Modifier.size(250.dp)) {
+            val strokeWidth = 10.dp.toPx()
+            val radius = (size.minDimension - strokeWidth) / 2
+            // Arka plan arc (subtle)
+            drawArc(
+                color = Color(0xFF2A3F35),
+                startAngle = -90f,
+                sweepAngle = 360f,
+                useCenter = false,
+                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
+            )
+            // İlerleme arc (altın rengi gradient)
+            drawArc(
+                brush = Brush.sweepGradient(listOf(Color(0xFFB8961E), Color(0xFFFFD700))),
+                startAngle = -90f,
+                sweepAngle = 360f * animatedProgress,
+                useCenter = false,
+                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
+            )
+        }
+
+        // KATMAN 3: Daire arka plan (gradient)
+        Box(
+            modifier = Modifier
+                .size(220.dp)
+                .clip(CircleShape)
+                .background(Brush.radialGradient(ZikirBgGradient))
+        )
+
+        // KATMAN 4: Sayı ve hedef metni
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            AnimatedContent(
+                targetState = mevcutSayi,
+                transitionSpec = {
+                    slideInVertically { it / 2 } + fadeIn() togetherWith
+                    slideOutVertically { -it / 2 } + fadeOut()
+                }
+            ) { sayi ->
+                Text(
+                    text = sayi.toString(),
+                    style = ZikirCounterStyle,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            Text(
+                text = "/ $hedef",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
+        }
+    }
+}
+
+── 5.6 ZİKİR TAMAMLANMA MODAL (ZikirTamamModal.kt) ─────────────────
+
+AnimatedVisibility ile gösterilen tam ekran overlay:
+  • Lottie animasyonu: islamic_celebration.json
+    (altın yağmuru, arabesk desen genişleme)
+  • "Mâşâallah! $turSayi tur tamamlandı" başlığı
+  • Toplam sayı gösterimi
+  • "Devam Et" / "Oturumu Kaydet" butonları
+  • Otomatik 2.5 saniye sonra kapanma
+
+── 5.7 ZİKİR İSTATİSTİK EKRANI (ZikirIstatistikScreen.kt) ──────────
+
+EKRAN LAYOUT:
+  • Üst kısım: 4 ozet kart (bugün/hafta/ay/toplam)
+    Her kart: M3 ElevatedCard, altın rengi ikon, sayı
+  • Haftalık Çizgi Grafiği: Compose Charts — LineChart
+    Her gün için sayım verisi, altın rengi çizgi
+  • Aylık Bar Grafiği: BarChart
+    30 günlük zikir dağılımı
+  • En Çok Çekilen Zikirler: PieChart (Top 5)
+  • Streak Widget: Ardışık gün — ateş ikonu, animasyonlu
+  • Toplam Ömür Zikri: Büyük sayı gösterimi
+  • "Bugünkü Hedef" ilerleme çubuğu
+
+── 5.8 ZİKİR GEÇMİŞ EKRANI (ZikirGecmisScreen.kt) ─────────────────
+
+  • LazyColumn — her oturum için kart
+  • Her kart: tarih, saat, zikir adı, sayı, süre, tamamlandı mı
+  • Filtreleme: tarih aralığı, zikir tipi
+  • Arama
+  • Silme (swipe-to-dismiss + undo Snackbar)
+  • Paylaş: "Bugün X adet Sübhanallah çektim"
+
+── 5.9 ÖZEL ZİKİR EKLEME (OzelZikirScreen.kt) ──────────────────────
+
+  • İsim gir (Türkçe)
+  • Arapça metin gir (RTL TextField, Amiri font)
+  • Hedef sayı seç
+  • Renk seç (renk picker)
+  • Kaydet → Zikir listesine eklenir
+
+── 5.10 ZİKİR SES SİSTEMİ (ZikirAudioManager.kt) ───────────────────
+
+@Singleton
+class ZikirAudioManager @Inject constructor(@ApplicationContext val ctx: Context) {
+    // SoundPool tabanlı düşük gecikmeli ses
+    // Ses tipleri:
+    //   • Tesbih sesi (tık)
+    //   • Ney nefesi (kısa)
+    //   • Su damlası
+    //   • Milestone sesi (farklı ton)
+    //   • Tamamlanma sesi (uzun melodik)
+    // Ses seviyesi ayarı
+    // Sessiz modda sadece titreşim
+}
+
+── 5.11 HABERCİ & BİLDİRİM SİSTEMİ ─────────────────────────────────
+
+WorkManager ile:
+  • Günlük zikir hatırlatıcısı (özelleştirilebilir saat)
+  • Günlük hedef tamamlanma bildirimi
+  • Sabah ezkarı hatırlatıcısı
+  • Akşam ezkarı hatırlatıcısı
+  • Namaz vakti bildirimleri
+
+Bildirim kanalları (NotificationChannel):
+  "zikir_hatirlat"    — Zikir Hatırlatıcı
+  "ezan_vakti"        — Ezan Vakitleri
+  "gunluk_ozet"       — Günlük Özet
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 6: DİĞER TÜM EKRANLAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+── 6.1 ANA SAYFA (HomeScreen.kt) ────────────────────────────────────
+
+COMPOSE YAPISI:
+  Scaffold(
+    topBar = { LargeTopAppBar → collapsing "بِسْمِ اللّٰهِ" + "Kadiri El Kitabı" }
+  ) {
+    LazyColumn {
+      item { HijriDateWidget() }           // Hicri + Miladi tarih
+      item { PrayerTimeWidget() }          // Sonraki namaz + countdown
+      item { DailyZikirCard() }            // Günün zikri / duası
+      item { DailyVerseCard() }            // Günün ayeti veya hadisi
+      item {
+        Text("Özellikler", style = headlineMedium)
+        LazyVerticalGrid(GridCells.Fixed(2)) {
+          // 12 özellik kartı — staggered animation
+          items(featureList) { feature -> FeatureCard(feature) }
+        }
+      }
+    }
+  }
+
+FeatureCard: M3 ElevatedCard, 24dp radius, 
+             Islamic geometric arka plan desen (Canvas, subtle),
+             Lottie ikon (animated) veya SVG ikon,
+             tonal renk (her özelliğe farklı)
+
+── 6.2 EL KİTABI (KitapListScreen + KitapDetayScreen) ───────────────
+
+KitapListScreen:
+  • SearchBar (M3 Expressive — animasyonlu expand)
+  • Devam et floating chip (son okunan sayfa)
+  • LazyColumn — her bölüm için BolumKarti
+    BolumKarti: arabesk kenarlık, bölüm no (büyük şeffaf),
+                bölüm adı (Amiri Bold 22sp), preview metin,
+                LinearProgressIndicator (okunan yüzde),
+                M3 ElevatedCard (24dp radius)
+
+KitapDetayScreen:
+  Okuma Modları (DataStore'da kalıcı):
+    • Normal    → background: Surface color
+    • Gece      → background: Color(0xFF1A0F00), text: amber
+    • Sepia     → background: Color(0xFFF4EEDD), text: koyu kahve
+  
+  FontBoyutu: Slider (12sp → 28sp) — remember + DataStore
+  
+  Arapça metin bloğu:
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        Text(text = arabicText, style = ArabicTextLarge,
+             modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp))
+    }
+  
+  Türkçe çeviri: italik, 15sp, Nunito, soldan sağa normal
+  
+  YerImi: IconButton → Room'a kayıt
+  
+  Paylaş: ShareCompat.IntentBuilder
+
+── 6.3 DUALAR EKRANI ────────────────────────────────────────────────
+
+Kategori sekmeler (ScrollableTabRow — M3 Expressive TabRow):
+  Sabah | Akşam | Yemek | Uyku | Namaz Sonrası | Kadiri Özel | Şifa | Yolculuk
+
+Her Dua Kartı (LazyColumn):
+  • Arapça metin (sağa dayalı, Amiri, 20sp, lineHeight=42sp)
+  • Türkçe okunuş (transliteration — italik, Nunito)
+  • Türkçe meal (normal, Nunito 14sp)
+  • Fazilet (M3 ElevatedCard içinde, secondaryContainer rengi)
+  • İkonlar: [Ses 🔊] [Favori ♥] [Paylaş 📤]
+  • Ses: MediaPlayer veya SoundPool (R.raw.dua_xxx)
+  ExpandableCard animasyonu (M3 Expressive AnimatedContent)
+
+── 6.4 NAMAZ VAKİTLERİ ──────────────────────────────────────────────
+
+  • adhan-kotlin ile TAM OFFLİNE hesaplama
+  • Konum: FusedLocationProviderClient (izin alınarak)
+  • Hesap metodu: DataStore'da saklı
+    (Diyanet, MWL, ISNA, Egypt, Karachi, UmmAlQura, Tehran)
+  • 8 vakit: İmsak, Güneş, Öğle, İkindi, Akşam, Yatsı + Gün Doğuşu/Batımı
+  • Bir sonraki namaz: büyük kart, countdown timer (Flow.timer)
+  • Her vakit için glassmorphism kart (blur efekti Compose'da)
+  • Ezan bildirimi: WorkManager + AlarmManager (hassas zamanlama)
+  • Takvim görünüm: aylık vakit listesi (LazyColumn)
+
+── 6.5 ESMA-ÜL HÜSNA (99 İSİM) ─────────────────────────────────────
+
+  • LazyVerticalGrid(GridCells.Adaptive(150.dp))
+  • Her isim kartı: Arapça (büyük, NotoKufi), Türkçe anlam
+  • Tonal renk → her isim grubuna farklı M3 tonu
+  • Detay sayfası: anlam, fazilet, zikir adedi
+  • ZikirMatik entegrasyon: "Bu isimle Zikir Çek" butonu
+  • Arama + sayıya göre filtreleme
+
+── 6.6 KADİRİ SİLSİLESİ ────────────────────────────────────────────
+
+  • Özel Timeline Widget (Canvas veya BoxWithConstraints)
+  • Dikey zincir: Hz. Muhammed (SAV) → Hz. Ali → ... → Günümüz
+  • Altın rengi zincir motifi (Canvas drawLine + drawCircle)
+  • Her halka: isim (Amiri), dönem, ülke flag (opsiyonel)
+  • Detay sayfası: kısa biyografi
+  • Zoom/pan gesture desteği (transformable modifier)
+
+── 6.7 HİCRİ TAKVİM ─────────────────────────────────────────────────
+
+  • ummalqura-calendar kütüphanesi
+  • Aylık grid (özel Compose Calendar widget)
+  • İslami özel günler renkli işaret (Mevlid, Kadir, Bayramlar...)
+  • Kadiri özel günleri (Gavs-ı Azam vefat / doğum yıldönümleri)
+  • Bugünün hicri tarihi → HomeScreen'e de yansıtılan
+
+── 6.8 KIBLECOMPASs ─────────────────────────────────────────────────
+
+  • SensorManager (TYPE_ROTATION_VECTOR) → gerçek zamanlı pusula
+  • Hedef: Kabe koordinatı (21.4225°N, 39.8262°E)
+  • Bearing hesaplama + animated rotation
+  • Kabe SVG grafiği dönen gösterge
+  • Mesafe bilgisi (Location'dan haversine formülü)
+  • Dikkat: Low-pass filter gürültü filtresi → smooth rotation
+  • Kalibrasyon rehberi dialog
+
+── 6.9 KADİRİ İLAHİLERİ (Media3 ExoPlayer) ─────────────────────────
+
+  • Media3 ExoPlayer tabanlı MediaService (arka plan audio)
+  • MediaController → Compose UI'ya bağlı
+  • Mini Player (bottom sheet persistent — her ekranda görünür)
+  • Tam Ekran Player:
+      - Glassmorphism arka plan
+      - Lottie ses dalgası animasyonu (çalarken)
+      - Şarkı adı (Amiri), sanatçı
+      - SeekBar (Compose Slider)
+      - Önceki / Oynat/Durdur / Sonraki
+      - Döngü / Karıştır / Hız (0.75x, 1x, 1.25x)
+  • Playlist: assets/audio/ klasöründeki gerçek dosyalar
+  • Notification media controls (Android 13+ MediaSession)
+
+── 6.10 AMEL DEFTERİ ────────────────────────────────────────────────
+
+  • Günlük 5 vakit namaz: CheckBox'lar (kılındı/kılınmadı)
+    Room'a LocalDate bazlı kayıt
+  • Zikir istatistikleri (ZikirViewModel'dan)
+  • Kuran sayfası takibi: "Bugün kaç sayfa?" NumberPicker
+  • Streak: ardışık gün = gamification sistemi (ateş animasyonu)
+  • Haftalık özet kart (Compose Charts)
+  • Notlar: Room'a metin kaydı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 7: SPLASH SCREEN & ONBOARDING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NATIVE SPLASH (androidx.core:core-splashscreen):
+  windowSplashScreenBackground:     #080A09 (OLED siyah)
+  windowSplashScreenAnimatedIcon:   animated_splash_icon (Bismillah SVG)
+  windowSplashScreenIconBackgroundColor: #0F3D2C
+
+ONBOARDING (3 sayfa — DataStore'a kaydedilir, bir kez gösterilir):
+  HorizontalPager(pageCount=3) ile:
+    Sayfa 1: Arabesk SVG animasyonlu arka plan
+             Kadiri tarikatı tanıtımı
+             Lottie: açılan kitap animasyonu
+    Sayfa 2: Özellikler ızgara — animasyonlu giriş (stagger)
+    Sayfa 3: Tema seçimi (Koyu/Açık) + şehir girişi (namaz için)
+  
+  "Bismillah Başlayalım" butonu → M3 Expressive FilledButton
+  Alt: page indicator dots (animasyonlu)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 8: APP ICON — ULTRA PREMİUM ADAPTIVE ICON
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ic_launcher_background.xml:
+  <color>#0F3D2C</color>  (derin zümrüt)
+
+ic_launcher_foreground.xml (VectorDrawable):
+  Tasarım konsepti:
+    • Dış: 8 köşeli İslami yıldız (path vektör)
+    • Yıldız içi: Altın rengi gradient dolgu
+    • Merkez: Stilize "قادري" kufi hattı (beyaz/altın)
+              VEYA Hilal + gül motifi SVG
+    • İnce arabesk çerçeve yıldız kenarlarında
+    • Renk: Dış → Altın gradient | İç → Yeşil-siyah
+    
+  Android 13+ Monochrome icon: ic_launcher_monochrome.xml
+    (Aynı şekil — tek renk, sistem tematic icon için)
+
+  Manifest'te:
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 9: ROOM DATABASE ŞEMASI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@Database(
+    entities = [
+        ZikirSessionEntity::class,    // Zikir oturumları
+        ZikirHedefEntity::class,      // Günlük hedefler
+        OzelZikirEntity::class,       // Kullanıcı özel zikirler
+        YerImiEntity::class,          // El kitabı yer imleri
+        FavoriDuaEntity::class,       // Favori dualar
+        NamazKazaEntity::class,       // Kaza namazı takibi
+        GunlukAmelEntity::class,      // Günlük amel kaydı
+        OkumaSayfasiEntity::class,    // El kitabı okuma ilerlemesi
+        IlahiPlaylistEntity::class,   // Kullanıcı ilahi listeleri
+        AyarlarEntity::class          // Uygulama ayarları
+    ],
+    version = 1,
+    exportSchema = true
+)
+@TypeConverters(Converters::class)
+abstract class KadiriDatabase : RoomDatabase()
+
+TypeConverters: LocalDate ↔ Long, List<Int> ↔ String (JSON)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 10: MEVCUT KODUN BUG FIX KONTROL LİSTESİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Mevcut kodda kontrol et ve düzelt:
+
+KOTLIN / COMPOSE SORUNLARI:
+  1.  Java kod kalıntıları → Kotlin'e dönüştür (tamamen)
+  2.  XML layout dosyaları → Compose'a taşı (tamamen)
+  3.  ViewBinding/DataBinding kullanımı → kaldır
+  4.  LiveData → StateFlow/SharedFlow (Kotlin Flow) ile değiştir
+  5.  AsyncTask → Coroutines (viewModelScope.launch) ile değiştir
+  6.  SharedPreferences → DataStore Preferences ile değiştir
+  7.  Handler/Looper → Coroutines delay() ile değiştir
+  8.  BroadcastReceiver (deprecated) → modern API'ye geç
+
+COMPOSE SPESİFİK:
+  9.  rememberCoroutineScope yanlış kullanımı → düzelt
+  10. remember { } yerine rememberSaveable { } (config change için)
+  11. State hoisting eksikliği → düzelt
+  12. LaunchedEffect key parametresi eksik → ekle
+  13. DisposableEffect onDispose eksik (memory leak) → ekle
+  14. Recomposition döngüsü (unstable lambda) → remember ile sar
+  15. derivedStateOf yerine State okuma → optimize et
+
+MİMARİ SORUNLAR:
+  16. ViewModel'da Context tutma → @ApplicationContext ile inject et
+  17. Repository pattern eksikliği → ekle
+  18. UseCase sınıfı yoksa → ekle (business logic)
+  19. Hilt inject edilmemiş bağımlılık → düzelt
+
+ANDROİD PLATFORM:
+  20. WillPopScope → BackHandler { } (Compose)
+  21. onBackPressed() → Predictive Back Gesture uyumu
+  22. requestedOrientation → WindowSizeClass ile responsive yap
+  23. Edge-to-edge eksikliği → enableEdgeToEdge() + windowInsets
+  24. Android 14 Exact Alarms izni → SCHEDULE_EXACT_ALARM
+  25. Android 13 Notification izni → POST_NOTIFICATIONS
+  26. Android 13 Media izni → READ_MEDIA_AUDIO
+  27. Scoped Storage ihlali → MediaStore API kullan
+
+PERFORMANS:
+  28. LazyColumn'da key parametresi eksik → ekle
+  29. Gereksiz recomposition → remember / derivedStateOf
+  30. Heavy computation on main thread → Dispatchers.IO
+  31. Bitmap yükleme main thread'de → Coil 3.x ile async
+  32. AnimationController dispose edilmemiş → DisposableEffect
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 11: PERFORMANS & ERİŞİLEBİLİRLİK STANDARTLARı
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMPOSE PERFORMANS (2026 standartları):
+  • Hedef frame rate: 60fps sabit / 120fps destekli cihazlarda
+  • Tüm composable'lar @Stable veya @Immutable işaretli
+  • LazyList: key { item.id } — her item'da
+  • Animasyonlu widget'lar: graphicsLayer { } + Modifier.composed
+  • Pahalı hesaplamalar: remember(key) { } ile cache
+  • derivedStateOf { } — hesaplanmış state için
+  • Baseline Profile (app/src/main/baseline-prof.txt): ana ekranlar
+  • R8 full mode: proguard-rules.pro düzgün ayarlı
+
+ERİŞİLEBİLİRLİK (TalkBack + WCAG 2.2 AA):
+  • Her interaktif element: Modifier.semantics { contentDescription = ... }
+  • Dokunma hedefleri: minimum 48.dp × 48.dp
+  • Renk kontrast: minimum 4.5:1 (beyaz üzeri koyu veya tersi)
+  • Dinamik font: LocalConfiguration.current.fontScale saygısı
+  • Reduce Motion: LocalConfiguration.current.uiMode kontrol
+  • Arapça metinler: semantics { heading() } veya text ile
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 12: MANIFEST AYARLARI (AndroidManifest.xml)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+İZİNLER:
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+  <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+APPLICATION:
+  android:theme="@style/Theme.Kadiri.SplashScreen"
+  android:enableOnBackInvokedCallback="true"   ← Predictive Back
+  android:localeConfig="@xml/locales_config"
+  android:supportsRtl="true"
+
+SERVİSLER:
+  <service android:name=".features.ilahi.PlaybackService"
+           android:exported="true"
+           android:foregroundServiceType="mediaPlayback">
+    <intent-filter>
+      <action android:name="androidx.media3.session.MediaSessionService" />
+    </intent-filter>
+  </service>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 13: AYARLAR EKRANI (SettingsScreen.kt)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  • Tema: Koyu / Açık / Sistem (M3 segmented button)
+  • OLED Siyah modu (tam siyah arka plan toggle)
+  • Renk şeması:
+      Zümrüt (varsayılan) | Altın | Mor (Velayet) | Okyanus
+  • Font boyutu genel ayarı
+  • Dil: Türkçe / Arapça (localeConfig)
+  • Namaz vakti şehir / hesap metodu
+  • Bildirim yönetimi (her tür için ayrı toggle)
+  • Zikir sesi seçimi
+  • Zikir titreşimi toggle
+  • Otomatik yedekleme (JSON export/import)
+  • Hakkında: versiyon, lisans, iletişim
+  • Her ayar: DataStore Preferences'ta kalıcı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BÖLÜM 14: SON KONTROL & DOĞRULAMA LİSTESİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Her feature tamamlandığında ZORUNLU kontroller:
+
+[ ] Proje hatasız compile ediyor mu? (./gradlew assembleDebug)
+[ ] Kotlin 2.1 + K2 compiler uyumlu mu?
+[ ] KSP ile Room + Hilt generate ediliyor mu?
+[ ] Tüm @Composable'lar Preview'da görüntüleniyor mu?
+[ ] Karanlık tema (OLED) tam ve hatasız çalışıyor mu?
+[ ] Arapça metinler RTL doğru yönde görünüyor mu?
+[ ] ZikirMatik tap → sayım → haptic → animasyon zinciri çalışıyor mu?
+[ ] Zikir hedef tamamlanınca Lottie animasyonu tetikleniyor mu?
+[ ] Ses sistemi sessiz modda titreşime geçiyor mu?
+[ ] Wakelock zikir sırasında çalışıyor mu?
+[ ] Room migration (version = 1) ayarlı mı?
+[ ] DataStore tercihler kalıcı mı?
+[ ] Navigation deep link çalışıyor mu?
+[ ] Predictive Back Gesture çalışıyor mu?
+[ ] Edge-to-edge doğru uygulandı mı?
+[ ] Tüm izinler runtime'da sorgulanıyor mu?
+[ ] Bildirimler Android 13+ izin alıyor mu?
+[ ] Media3 arka planda çalıyor mu?
+[ ] Adaptive icon (round + normal) doğru mu?
+[ ] Monochrome icon oluşturuldu mu?
+[ ] Splash screen OLED siyahı ve Bismillah animasyonu çalışıyor mu?
+[ ] Namaz vakitleri offline hesaplanıyor mu?
+[ ] Kıble pusulası smooth dönüyor mu?
+[ ] Hicri takvim doğru mu?
+[ ] MeVCUT TÜM VERİ KORUNDU mu? (KRITIK)
+[ ] placeholder/mock/demo hiçbir veri YOK mu?
+[ ] Accessibility semantics eklendi mi?
+[ ] Recomposition sayısı minimize edildi mi?
+[ ] Memory leak yok mu? (Profiler kontrolü)
+[ ] ProGuard / R8 kuralları tüm kütüphaneler için var mı?
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+UYGULAMA SÜRÜM BİLGİSİ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  versionCode = 2
+  versionName = "2.0.0"
+  applicationId = "com.kadiri.elkitabi"
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                    بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ                   ║
+║          Her başlangıç Allah'ın adıyla — Sonucu hayırlı olsun.      ║
+║          Kadiri tarikatının nuruyla aydınlanan bir uygulama.         ║
+╚══════════════════════════════════════════════════════════════════════╝
