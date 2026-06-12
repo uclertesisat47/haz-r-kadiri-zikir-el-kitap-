@@ -1,0 +1,596 @@
+=======================================================================
+GÖREV: KADİRİ TARİKATI EL KİTABI ANDROID MOBİL UYGULAMASI
+        — TAM YENIDEN TASARIM + YENİ ÖZELLİKLER + BUG FIX —
+        2026 EN SON MİMARI VE TASARIM STANDARTLARINA GÖRE
+=======================================================================
+
+SEN KİMSİN:
+Sen hem kıdemli bir Android/Flutter mobil uygulama mimarısın,
+hem üst düzey UI/UX tasarımcısısın, hem de İslami tasavvuf ve
+Kadiri tarikatı estetiği konusunda uzman bir danışmansın.
+Placeholder, demo data, mock içerik YASAKTIR.
+Veri bütünlüğünü MUTLAKA koru. Mevcut tüm gerçek içerik ve
+verileri hiçbirini silmeden, kaybetmeden olduğu gibi kullan.
+
+=======================================================================
+BÖLÜM 1: MİMARİ YAPI VE TEKNOLOJİ STACK
+=======================================================================
+
+ZORUNLU FRAMEWORK VE MİMARİ:
+- Framework: Flutter (Dart) — tek codebase, Android öncelikli
+- Mimari Pattern: Clean Architecture + MVVM + Repository Pattern
+  (Presentation Layer → Domain Layer → Data Layer)
+- State Management: Riverpod 2.x (StateNotifier + AsyncNotifier)
+- Navigation: GoRouter 14.x (deep linking destekli)
+- Local Database: Isar DB 4.x (yüksek performanslı, offline-first)
+  VEYA Drift (SQLite üzeri type-safe ORM)
+- Dependency Injection: get_it + injectable
+- Async: Dart Isolates + compute() (ağır işlemler için)
+- Build: Flutter 3.24+ (Dart 3.5+)
+- Min SDK: Android 8.0 (API 26) | Target SDK: Android 15 (API 35)
+
+ZORUNLU PAKETLER (pubspec.yaml):
+dependencies:
+  flutter_riverpod: ^2.5.x
+  riverpod_annotation: ^2.3.x
+  go_router: ^14.x.x
+  isar: ^4.0.x
+  isar_flutter_libs: ^4.0.x
+  path_provider: ^2.1.x
+  flutter_animate: ^4.5.x       # spring-based micro-animasyonlar
+  lottie: ^3.1.x                # Lottie JSON animasyonları
+  google_fonts: ^6.2.x          # Amiri, Scheherazade New, Noto Kufi
+  shared_preferences: ^2.3.x
+  fl_chart: ^0.68.x             # istatistik grafikleri (zikir/progress)
+  audioplayers: ^6.1.x          # sesli zikir, ilahi, ney/dini müzik
+  flutter_local_notifications: ^17.2.x  # namaz vakti / zikir hatırlatıcı
+  permission_handler: ^11.3.x
+  geolocator: ^12.x.x           # Kıble yönü için
+  flutter_qiblah: ^2.1.x        # Kıble pusulası
+  hijri: ^2.0.x                 # Hicri takvim
+  adhan: ^1.1.x                 # namaz vakti hesaplama (offline)
+  share_plus: ^9.x.x
+  url_launcher: ^6.3.x
+  flutter_svg: ^2.0.x           # SVG Islamic motif ikonları
+  dynamic_color: ^1.7.x         # Material You dinamik renk
+  flex_color_scheme: ^8.x.x     # premium renk şeması
+  shimmer: ^3.0.x               # skeleton loading
+  cached_network_image: ^3.3.x
+  hive_flutter: ^1.1.x          # hafif key-value cache
+  connectivity_plus: ^6.x.x
+  intl: ^0.19.x
+  arabic_font_flutter: ^0.1.x
+  wakelock_plus: ^1.x.x         # zikir sırasında ekran açık kalsın
+  vibration: ^2.0.x             # haptic feedback (zikir sayacı)
+  screen_brightness: ^0.2.x
+
+dev_dependencies:
+  riverpod_generator: ^2.4.x
+  build_runner: ^2.4.x
+  freezed: ^2.5.x
+  json_serializable: ^6.8.x
+  flutter_launcher_icons: ^0.14.x
+  flutter_native_splash: ^2.4.x
+
+=======================================================================
+BÖLÜM 2: TASARIM SİSTEMİ — 2026 PREMIUM İSLAMİ TASAVVUF ESTETİĞİ
+=======================================================================
+
+TEMEL TASARIM DİLİ:
+Material Design 3 Expressive (Google I/O 2026) + Sufizm Estetiği
+Spring-based motion system, 35 yeni M3 Expressive şekil,
+glassmorphism katmanlar, ağır tipografi, arka plan derinliği.
+
+——— RENK PALETİ (Tasavvuf & Kadiri Ruhuna Uygun) ———
+
+IŞIK TEMA (Light Theme):
+  Primary:          #1B4D3E  (derin zümrüt yeşili — Kadiri yeşili)
+  OnPrimary:        #FFFFFF
+  PrimaryContainer: #C8F0DC  (açık yeşil ten)
+  Secondary:        #8B6914  (altın varak — manevi zenginlik)
+  OnSecondary:      #FFFFFF
+  SecondaryContainer: #F5E6B3 (soluk altın)
+  Tertiary:         #5C3A78  (derin mor — velayet / irfan)
+  OnTertiary:       #FFFFFF
+  TertiaryContainer:#EDD9FF  (lavanta)
+  Background:       #FDFAF4  (antik parşömen beyazı)
+  Surface:          #F7F3EC
+  SurfaceVariant:   #EDE8DF
+  Outline:          #8A8070
+  Error:            #B3261E
+
+KARANLIK TEMA (Dark Theme — VARSAYILAN, OLED OPTİMİZE):
+  Primary:          #5FD99A  (parlak zümrüt)
+  OnPrimary:        #003822
+  PrimaryContainer: #0F3D2C
+  Secondary:        #F0C040  (altın)
+  OnSecondary:      #3A2800
+  SecondaryContainer:#5C4200
+  Tertiary:         #D8A8FF  (açık mor)
+  OnTertiary:       #3D0060
+  TertiaryContainer:#59007A
+  Background:       #0D0F0E  (saf siyah — OLED tam siyah)
+  Surface:          #121714
+  SurfaceVariant:   #1E2520
+  Outline:          #8FAF97
+
+TİPOGRAFİ SİSTEMİ (İslami hat geleneğiyle uyumlu):
+  Display / Başlık:       Amiri (Arapça + Latin, klasik hat ruhu)
+  Headline:               Scheherazade New (Arapça için)
+  Title:                  Noto Kufi Arabic (kufi hat stili)
+  Body / Metin:           Amiri Regular
+  Türkçe UI Metinleri:    Google Fonts — Nunito veya Plus Jakarta Sans
+  Arapça Ayetler:         Amiri Quran veya KFGQPC Uthmanic (embed)
+
+  --- Boyut Skalası (M3 Expressive Type Scale) ---
+  Display Large:   57sp / weight 400
+  Display Medium:  45sp / weight 400
+  Display Small:   36sp / weight 400
+  Headline Large:  32sp / weight 500 (bold Islamic başlıklar)
+  Headline Medium: 28sp / weight 500
+  Title Large:     22sp / weight 700
+  Title Medium:    16sp / weight 600
+  Body Large:      16sp / weight 400
+  Body Medium:     14sp / weight 400
+  Label Large:     14sp / weight 600
+  Label Small:     11sp / weight 500
+
+ŞEKİL SİSTEMİ (M3 Expressive 35 şekil seti):
+  Kartlar:           RoundedRectangleBorder(radius: 24dp)
+  Butonlar:          StadiumBorder (tam yuvarlak)
+  BottomSheet:       Üst köşe radius: 28dp
+  Dialog:            radius: 28dp
+  Chip/Badge:        radius: 8dp
+  İslami özel:       Sekizgen arch kartlar (kubbe motifi)
+                     Pointed arch shapes (kemer motifi — cami)
+
+İSLAMİ MOTİF SİSTEMİ:
+  - SVG arabesque (arabesk) border'lar → her sayfa header'ında
+  - Geometric Islamic pattern (yıldız-10/yıldız-8) → arka plan subtle desen
+  - Bismillah hat yazısı → splash ve onboarding'de SVG animasyonlu
+  - Hilal & yıldız → app icon ve header aksan
+  - Mukarnas detay → card corner dekorasyonu (subtle SVG overlay)
+  - Tezhip motifi border → özel içerik kutularında
+
+GLASSMORPHİZM (2026 Surgical Glassmorphism):
+  - Overlay kartlar için: BackdropFilter(filter: ImageFilter.blur(sigmaX:12, sigmaY:12))
+  - Renk: Colors.white.withOpacity(0.08) DARK / Colors.white.withOpacity(0.65) LIGHT
+  - Border: Border.all(color: Colors.white.withOpacity(0.15), width: 1)
+  - Sadece üst katman kartlarda, modalda, media player'da kullan
+  - Ana içerik yüzeylerinde KULLANMA (performans)
+
+ANİMASYON SİSTEMİ (Spring Physics — M3 Expressive):
+  - flutter_animate kullan, tüm geçişlerde spring curve
+  - Page transition: SharedAxisTransition (horizontal)
+  - List item giriş: FadeIn + SlideY (staggered, 50ms delay)
+  - Zikir counter sayım: scale pulse animation (spring, 80ms)
+  - BottomNav aktif: morphing icon animation
+  - Lottie: splash bismillah yazım animasyonu, zikir tamamlanma
+  - Haptic feedback: HapticFeedback.lightImpact() her zikir sayımında
+
+SPACING SİSTEMİ (M3 I/O 2026 8dp grid):
+  xs: 4dp | sm: 8dp | md: 16dp | lg: 24dp | xl: 32dp | xxl: 48dp
+  Tüm padding/margin bu sistemden gelsin, hardcode yasak.
+
+=======================================================================
+BÖLÜM 3: UYGULAMA MİMARİSİ — KLASÖR YAPISI
+=======================================================================
+
+lib/
+├── main.dart
+├── app/
+│   ├── app.dart               (MaterialApp.router)
+│   ├── router/
+│   │   └── app_router.dart    (GoRouter config)
+│   └── theme/
+│       ├── app_theme.dart     (Light + Dark ThemeData)
+│       ├── color_schemes.dart
+│       ├── typography.dart
+│       └── shape_constants.dart
+├── core/
+│   ├── constants/
+│   │   ├── app_strings.dart   (i18n hazırlığı — TR/AR)
+│   │   ├── app_colors.dart
+│   │   └── app_sizes.dart
+│   ├── utils/
+│   │   ├── arabic_utils.dart  (hareke, metin utils)
+│   │   ├── hijri_utils.dart
+│   │   └── prayer_time_utils.dart
+│   ├── widgets/
+│   │   ├── islamic_card.dart        (arabesk decorasyonlu kart)
+│   │   ├── arabesk_header.dart      (SVG motifli header)
+│   │   ├── bismillah_widget.dart
+│   │   ├── section_divider.dart     (tezhip motifli divider)
+│   │   ├── gradient_scaffold.dart
+│   │   └── animated_list_item.dart
+│   └── extensions/
+│       └── context_extensions.dart
+├── features/
+│   ├── home/
+│   ├── kitap/          (El Kitabı — bölümler)
+│   ├── zikir/          (Zikirmatik)
+│   ├── dua/            (Dualar)
+│   ├── namaz/          (Namaz vakitleri)
+│   ├── takvim/         (Hicri takvim)
+│   ├── kible/          (Kıble pusulası)
+│   ├── ilahi/          (Sesli içerik — Kadiri ilahileri)
+│   ├── asma_ul_husna/  (99 Esma)
+│   ├── silsile/        (Kadiri silsilesi)
+│   ├── settings/
+│   └── onboarding/
+└── data/
+    ├── local/
+    │   ├── database/
+    │   └── assets_data/
+    └── repositories/
+
+assets/
+├── fonts/           (Amiri, Scheherazade, Noto Kufi embed)
+├── icons/           (SVG islamik ikonlar)
+├── images/
+│   ├── patterns/    (SVG geometric Islamic patterns)
+│   ├── arabesk/     (arabesk border SVG'leri)
+│   └── splash/
+├── lottie/          (Bismillah animasyonu, zikir complete vb.)
+├── audio/           (Kadiri ilahileri, Fatiha ses, zikir sesleri)
+└── data/
+    ├── kitap.json   (El kitabı içeriği — MEVCUT VERİYİ KULLAN)
+    ├── zikir.json
+    ├── dua.json
+    └── esma.json
+
+=======================================================================
+BÖLÜM 4: EKRANLAR VE ÖZELLİKLER — TAM DETAY
+=======================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.1 SPLASH SCREEN & ONBOARDING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- flutter_native_splash: OLED siyahı zemin
+- Lottie animasyonu: Bismillah hattı SVG çizim animasyonu (2.5sn)
+- Ardından Kadiri tarikatı adı + hilal motifi fade-in
+- Onboarding (3 sayfa): swipe carousel
+  * Sayfa 1: Kadiri tarikatını tanıtım (arabesk arka plan)
+  * Sayfa 2: Uygulamanın özellikleri (icon grid animasyonlu)
+  * Sayfa 3: Dil seçimi (TR/AR) + tema seçimi (Dark/Light)
+- "Bismillah — Başlayalım" butonu → Home
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.2 ANA SAYFA (HOME)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LAYOUT:
+- CustomScrollView + SliverAppBar (collapsing, pinned)
+- AppBar: Arabesk SVG motifli arka plan, "Kadiri El Kitabı"
+          başlığı Amiri font, sağda settings icon
+- Hicri tarih widget'ı (günün tarihi, dinamik)
+- Namaz vakti widget'ı (bir sonraki namaz + countdown timer)
+- Günün zikri / duası kartı (glassmorphism kart)
+- Özellik grid'i (2x4 masonry grid, animated stagger):
+  * 📖 El Kitabı      * 📿 Zikirmatik
+  * 🤲 Dualar        * 🕌 Namaz Vakitleri
+  * 🧭 Kıble          * 📅 Hicri Takvim
+  * ✨ Esma-ül Hüsna  * 🔗 Silsile-i Şerif
+  * 🎵 Kadiri İlahileri  * 📊 Amel Defteri
+  * ❓ Sıkça Sorulan Sorular  * ⚙️ Ayarlar
+- Her kart: Islamic geometric arka plan pattern (subtle),
+            rounded 24dp, M3 Expressive tonal surface rengi
+
+BOTTOM NAVIGATION BAR:
+- 5 sekme: Ana Sayfa | El Kitabı | Zikirmatik | Dualar | Daha Fazla
+- M3 NavigationBar (floating pill style)
+- Animasyonlu icon morph (aktif/pasif)
+- Glassmorphism arka plan (karanlık temada)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.3 EL KİTABI (MEVCUT VERİYİ KULLAN — TAM)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MEVCUT TÜM İÇERİK VE BÖLÜMLER AYNEN KORUNACAK.
+Sadece görsel sunum, navigasyon ve okunabilirlik iyileştirilecek.
+
+ANA LİSTE EKRANI:
+- Collapsing toolbar + arabesk SVG header görseli
+- Bölümler: M3 Expressive büyük kartlar (24dp radius)
+            Tonal renk (her bölüme farklı secondary tonu)
+            Bölüm numarası (büyük, şeffaf arka plan aksan)
+            Bölüm adı (Amiri Bold, headline style)
+            Kısa açıklama preview
+            İlerleme çubuğu (okunanlar)
+- Arama çubuğu (M3 Expressive SearchBar — animasyonlu expand)
+- "Kaldığım Yer" floating chip → son okunan sayfa
+
+DETAY OKUMA EKRANI:
+- İçerik: CustomScrollView, SliverPersistentHeader (bölüm başlığı)
+- Arapça metin: Amiri / KFGQPC font, sağdan sola, 20sp, line-height 2.0
+- Türkçe çeviri: Nunito, 15sp, altında italik
+- Açıklama: body style
+- Arabesk bölüm ayırıcı (SVG divider — tezhip motifi)
+- Okuma modu: Normal | Gece (sıcak amber renk) | Sepia (parşömen)
+- Font boyutu slider (12sp → 26sp, dinamik)
+- Yer imi sistemi (Isar'da saklı, kalıcı)
+- Paylaş butonu (metin seçip paylaşma)
+- İleri/Geri sayfa navigasyonu (swipe gesture + buton)
+- İçindekiler FAB → drawer panel
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.4 ZİKİRMATİK (YENİ — ULTRA GELİŞMİŞ)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TASARIM:
+- Ekranın tamamını kaplayan büyük, sade, odaklanmış UI
+- Orta: Büyük daire — radial progress indicator (animated)
+  * İçinde sayı (Amiri Bold, 64sp)
+  * Etrafında arabesk daire motif (SVG, dönen subtle)
+- Altında: Zikir adı (Arapça + Türkçe) — Amiri 24sp
+- Zikir çekme yöntemi:
+  * Ekranın herhangi yerine dokunma (büyük tap area)
+  * Fiziksel volume tuşu ile de sayma (accessibility)
+  * Her sayımda: spring scale pulse + HapticFeedback.light()
+  * Her 33/99/100/500/1000'de: özel Lottie kutlama animasyonu
+                               + HapticFeedback.heavy()
+
+ZİKİR HAVUZU (Kadiri Tarikatına Özgü):
+  - Sübhanallah (33 | 99 | 500 | 1000)
+  - Elhamdülillah (33 | 99)
+  - Allahu Ekber (33 | 99)
+  - La ilahe illallah (100 | 500 | 1000)
+  - Salavat-ı Şerife (10 | 100 | 1000)
+  - Estağfirullah (70 | 100 | 1000)
+  - Hasbunallah (450)
+  - Ya Hay Ya Kayyum (33)
+  - Kadiri Hatm duası zikir silsilesi (özel)
+  + Özel zikir ekleme (isim + hedef sayı)
+
+ÖZELLİKLER:
+  - Ses seçeneği: sessiz | titreşim | tesbih sesi | ney sesi
+  - Hedef belirleme (33, 99, 100, 500, 1000 veya özel)
+  - Hedef tamamlanınca otomatik bildirim + ses/titreşim
+  - Günlük hedef takibi (Amel Defteri'ne otomatik kayıt)
+  - Geçmiş kayıtları (tarih/saat/miktar — Isar DB)
+  - Gece modu optimizasyonu (ekran parlaklığı otomatik düşme)
+  - "Wakelock" — zikir sırasında ekran kapanmaz
+  - İstatistik: haftalık/aylık fl_chart grafiği
+  - Toplam ömür zikir sayısı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.5 NAMAZ VAKİTLERİ (TAM OFFLİNE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- adhan paketi ile offline hesaplama (GPS koordinatı)
+- Hesaplama metodu seçimi: Diyanet | MWL | ISNA | Egypt | Custom
+- 5 vakit + imsak + güneş doğuşu
+- Bir sonraki namaz: countdown timer (animasyonlu)
+- Her vakit için ayrı ezan bildirimi (flutter_local_notifications)
+- Ezan sesi seçimi (offline audio)
+- Kaza namazı takibi
+- Takvim görünümü (aylık vakit listesi)
+- Premium kart tasarımı (her vakit için glassmorphism kart,
+  aktif vakit vurgulu — pulse animasyonu)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.6 DUALAR & EZKÂR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+KATEGORİLER:
+  - Sabah ezkarı | Akşam ezkarı
+  - Yemek duaları (önce/sonra)
+  - Uyku duaları
+  - Namaz sonrası dualar
+  - Istiğfar duaları
+  - Kadiri tarikatına özgü dualar ve evradlar
+  - Mevlit duaları
+  - Şifa duaları
+  - Yolculuk duaları
+
+HER DUA KARTI:
+  - Arapça metin (büyük, sağa dayalı, Amiri)
+  - Türkçe okunuşu (transliteration)
+  - Türkçe meali
+  - Fazileti / ne zaman okunacağı
+  - Ses butonu (audioplayers ile offline ses)
+  - Favorilere ekle (Isar kalıcı)
+  - Paylaş
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.7 ESMA-ÜL HÜSNA (99 ALLAH'IN İSMİ)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Grid görünüm (3 sütun) veya liste görünüm
+- Her isim: Arapça (büyük hat) + Türkçe anlam + Türkçe okunuş
+- Her isme özel renk tonu (tonal surface)
+- Detay sayfası: İsmin anlamı, fazileti, zikir sayısı
+- Zikirmatik ile entegrasyon (isim seç → zikirmatike gönder)
+- Arama / filtreleme
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.8 KADİRİ SİLSİLESİ (SİLSİLE-İ ŞERİF)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Dikey zaman çizelgesi UI (custom timeline widget)
+- Hz. Peygamber'den günümüze silsile zinciri
+- Her halka: Şeyhin adı (Arapça + Türkçe) + dönem
+- Kadiri büyükleri: kısa biyografi sayfası
+- Dekoratif: altın rengi zincir SVG motifi
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.9 HİCRİ TAKVİM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- hijri paketi ile tam Hicri/Miladi çift takvim
+- Aylık grid view (özel stilize)
+- İslami özel günler işaretli (Mevlid, Kadir, Arefe, Bayramlar...)
+- Kadiri tarikatı özel günleri (Gavs-ı Azam anma vb.)
+- Bugünün hicri tarihi widget → Home'a da yansıyan
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.10 KIBLECOMPASs (KIBLENUMAİ)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- flutter_qiblah + geolocator
+- Gerçek zamanlı pusulası (animasyonlu dönen kabe SVG)
+- Kabe'ye açı ve mesafe bilgisi
+- Pusula kalibrasyonu rehberi
+- Premium dairesel UI (altın sarısı kadran, arabesk çerçeve)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.11 KADİRİ İLAHİLERİ & SESLİ İÇERİK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- audioplayers ile offline ilahi çalma
+- Mini player (ekran altında persistent)
+- Tam ekran player (glassmorphism kart, Lottie ses dalgası)
+- Playlist: Kadiri ilahileri, Hatm-i Hâcegan, Zikir sesleri
+- Arka planda çalma (background audio service)
+- İlerleme çubuğu, önceki/sonraki, döngü/karıştır
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.12 AMEL DEFTERİ (YENİ — PROGRESS TRACKER)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Günlük / haftalık / aylık ibadet takibi
+- Namaz takibi (5 vakit — kılındı/kılınmadı checkbox)
+- Zikir istatistikleri (fl_chart — çizgi grafik + bar)
+- Kuran okuma sayfası takibi
+- Notlar / hatırlatıcılar
+- Streak sistemi (ardışık gün takibi — gamification)
+- Haftalık özet kartı
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4.13 AYARLAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Tema: Koyu / Açık / Sistem
+- Renk şeması: Zümrüt (varsayılan) / Altın / Mor / Okyanus
+- Font boyutu (genel)
+- Dil: Türkçe / Arapça (i18n hazır)
+- Namaz vakti ayarları (şehir, hesap yöntemi)
+- Bildirim yönetimi
+- Zikir sesi ve titreşim
+- Hakkında / Sürüm bilgisi
+- Veri yedekleme/geri yükleme (JSON export)
+
+=======================================================================
+BÖLÜM 5: APP ICON & SPLASH — ULTRA PREMİUM
+=======================================================================
+
+UYGULAMA İCONU (flutter_launcher_icons):
+Tasarım konsepti:
+  - Arka plan: Derin zümrüt yeşili (#1B4D3E) → siyaha radial gradient
+  - Merkez motif: Beyaz/altın sekiz köşeli İslami yıldız (yıldız-8)
+                  Merkezinde stilize "Kadir" kûfi hattı veya
+                  Kadiri tarikatını simgeleyen yeşil hilal + gül motifi
+  - Kenar: İnce altın arabesk çerçeve
+  - Köşe radius: Adaptive icon (Android 13+) — tam yuvarlak
+  - Foreground layer + background layer (adaptive icon)
+  - Monochrome versiyonu da oluştur (Android 13 themed icons)
+
+flutter_launcher_icons yapılandırması:
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icons/app_icon_foreground.png"
+  adaptive_icon_background: "#0F3D2C"
+  adaptive_icon_foreground: "assets/icons/app_icon_foreground.png"
+  min_sdk_android: 21
+  web:
+    generate: false
+
+NATIVE SPLASH:
+flutter_native_splash:
+  color: "#0D0F0E"
+  image: assets/images/splash/bismillah_white.png
+  android_12:
+    color: "#0D0F0E"
+    icon_background_color: "#0D0F0E"
+    image: assets/images/splash/bismillah_white.png
+
+=======================================================================
+BÖLÜM 6: VERİ BÜTÜNLÜĞÜ — KESİN KURALLAR
+=======================================================================
+
+🔴 YASAK OLANLAR:
+  - "Lorem ipsum" veya herhangi bir placeholder metin YASAK
+  - "TODO", "FIXME", "coming soon" YASAK
+  - Boş/sahte veri YASAK
+  - Mevcut el kitabı verilerini silmek/değiştirmek YASAK
+  - Hardcode edilmiş rastgele içerik YASAK
+
+✅ ZORUNLU OLANLAR:
+  - Tüm mevcut el kitabı bölümleri eksiksiz korunacak
+  - Tüm mevcut dua ve zikir verileri korunacak
+  - JSON veri dosyaları structured ve type-safe olacak
+  - Isar schema'ları Freezed ile tanımlanacak
+  - Her veri kaynağı için Repository pattern uygulanacak
+
+=======================================================================
+BÖLÜM 7: PERFORMANS & ERİŞİLEBİLİRLİK
+=======================================================================
+
+PERFORMANS (2026 standartları):
+  - Hedef: 60fps sürekli, 120fps destekli cihazlarda 120fps
+  - Lazy loading: SliverList / ListView.builder her yerde
+  - Image caching: CachedNetworkImage + precacheImage
+  - Kod ayrımı: deferred imports (büyük feature'lar için)
+  - Overdraw: tüm widget ağacında önlenmiş
+  - Build metodu: const constructor'lar maksimum kullanım
+  - RepaintBoundary: ağır animasyonlu widget'lar için
+  - Profiling: Flutter DevTools ile doğrulanmış
+
+ERİŞİLEBİLİRLİK (WCAG 2.2 AA — AB Erişilebilirlik Yasası 2025):
+  - Tüm metin kontrast oranı: minimum 4.5:1
+  - Dokunma hedefleri: minimum 48x48dp
+  - TalkBack desteği: Semantics widget tüm interaktif elemanlara
+  - Dinamik font boyutu: sistem ayarına uyumlu
+  - Reduce Motion: AnimationController ile saygı gösterilmiş
+  - Renk körlüğü: renkle birlikte ikon/metin kullanımı
+
+=======================================================================
+BÖLÜM 8: MEVCUT SORUNLARI DÜZELTMELERİ (BUG FIX)
+=======================================================================
+
+Mevcut kodda aşağıdaki kontrolleri yap ve düzelt:
+
+1. NULL SAFETY: Dart null-safety ihlalleri → düzelt
+2. DEPRECATED API'LER: withOpacity → .withValues(alpha:)
+                       WillPopScope → PopScope
+                       TextButton.icon → eski imzalar → güncelle
+3. NAVIGATION: Eğer Navigator 1.0 kullanılıyorsa → GoRouter'a geç
+4. STATE: setState() abuse → Riverpod StateNotifier'a taşı
+5. FONT: Hardcode font string'leri → GoogleFonts.amiri() ile değiştir
+6. LAYOUT OVERFLOW: RenderFlex overflow hataları → Flexible/Expanded
+7. KEYBOARD OVERFLOW: SingleChildScrollView eksikliği → ekle
+8. THEME: Hardcode Color() kullanımı → Theme.of(context).colorScheme
+9. LIST PERFORMANCE: ListView (shrinkWrap:true) içinde → builder'a geç
+10. MEMORY LEAK: dispose() eksikliği → AnimationController, Timer vb.
+11. ARABIC TEXT DIRECTION: Textfield RTL → TextDirection.rtl ekle
+12. ANDROID BACK GESTURE: Android 14+ predictive back gesture → ekle
+13. EDGE TO EDGE: Android 15 edge-to-edge display → SystemUIOverlay
+
+=======================================================================
+BÖLÜM 9: PROJE KURULUM ADIMLARI (REPLIT İÇİN)
+=======================================================================
+
+1. Flutter SDK 3.24+ kurulu olduğunu doğrula
+2. pubspec.yaml'ı yukarıdaki paketlerle güncelle
+3. flutter pub get çalıştır
+4. Isar schema'larını generate et: dart run build_runner build
+5. Assets klasör yapısını oluştur
+6. flutter_launcher_icons: dart run flutter_launcher_icons
+7. flutter_native_splash: dart run flutter_native_splash:create
+8. Ana theme dosyalarını oluştur
+9. Router konfigürasyonunu yap
+10. Feature'ları sırayla implement et (önce core widgets)
+
+=======================================================================
+BÖLÜM 10: SON KONTROL LİSTESİ
+=======================================================================
+
+Her feature tamamlandığında kontrol et:
+[ ] Karanlık tema tam çalışıyor mu?
+[ ] Animasyonlar 60fps'de akıcı mı?
+[ ] Arapça metinler RTL doğru mu?
+[ ] Haptic feedback çalışıyor mu?
+[ ] Bildirimler izin alıyor mu?
+[ ] Veri Isar'da kalıcı mı?
+[ ] GoRouter deep link çalışıyor mu?
+[ ] Tüm ekranlar bottom bar navigasyonuna bağlı mı?
+[ ] Font'lar embed edildi mi?
+[ ] Icon adaptive + monochrome üretildi mi?
+[ ] Splash tam ekran ve OLED siyahı mı?
+[ ] Accessibility Semantics eklendi mi?
+[ ] Null safety ihlali yok mu?
+[ ] Mevcut veri kaybı yok mu?
+
+=======================================================================
+                    BİSMİLLAHİRRAHMANİRRAHİM
+         Başlangıcı Allah'ın adıyla — Sonucu hayırlı olsun.
+=======================================================================
